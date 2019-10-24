@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:showIn="navigation_view">
+
+    <group
+            android:id="@+id/menu_items_top"
+            android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_tasks"
+                android:icon="@drawable/task_outline_ic"
+                android:title="تسک ها" />
+        <item
+                android:id="@+id/nav_new_task"
+                android:icon="@drawable/ic_calendar_plus"
+                android:title="@string/menu_gallery" />
+        <item
+                android:id="@+id/nav_timer"
+                android:icon="@drawable/ic_calendar_clock"
+                android:title="@string/menu_timer" />
+        <item
+                android:id="@+id/nav_statistic"
+                android:icon="@drawable/ic_chart_bar"
+                android:title="@string/menu_statistic" />
+      <!--  <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="@string/menu_home" />-->
+
+
+    </group>
+
+
+    <group android:id="@+id/menu_items_bottom">
+        <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/menu_share" />
+        <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_info"
+                android:title="@string/menu_about" />
+    </group>
+
+
+</menu>

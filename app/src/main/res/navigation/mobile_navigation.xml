@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mobile_navigation"
+        app:startDestination="@id/nav_tasks">
+
+    <fragment
+            android:id="@+id/nav_home"
+            android:name="zohrevand.mahdi.taskmanager.view.home.HomeFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home" />
+
+    <fragment
+            android:id="@+id/nav_new_task"
+            android:name="zohrevand.mahdi.taskmanager.view.newtask.NewTask"
+            android:label="@string/menu_gallery"
+            tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+            android:id="@+id/nav_timer"
+            android:name="zohrevand.mahdi.taskmanager.view.timer.SlideshowFragment"
+            android:label="@string/menu_timer"
+            tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+            android:id="@+id/nav_statistic"
+            android:name="zohrevand.mahdi.taskmanager.view.statistic.ToolsFragment"
+            android:label="@string/menu_statistic"
+            tools:layout="@layout/fragment_tools" />
+
+    <fragment
+            android:id="@+id/nav_tasks"
+            android:name="zohrevand.mahdi.taskmanager.view.taskList.TaskFragment"
+            android:label="تسک ها"
+            tools:layout="@layout/fragment_task_list" />
+
+    <fragment
+            android:id="@+id/nav_share"
+            android:name="zohrevand.mahdi.taskmanager.view.setting.ShareFragment"
+            android:label="@string/menu_share"
+            tools:layout="@layout/fragment_share" />
+
+    <fragment
+            android:id="@+id/nav_send"
+            android:name="zohrevand.mahdi.taskmanager.view.about.SendFragment"
+            android:label="@string/menu_about"
+            tools:layout="@layout/fragment_send" />
+</navigation>
