@@ -1,4 +1,4 @@
-package zohrevand.mahdi.taskmanager.view.TaskList
+package zohrevand.mahdi.taskmanager.view.taskList
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import android.widget.TextView
 import zohrevand.mahdi.taskmanager.R
 
 
-import zohrevand.mahdi.taskmanager.view.TaskList.TaskFragment.OnListFragmentInteractionListener
-import zohrevand.mahdi.taskmanager.view.TaskList.dummy.DummyContent.DummyItem
+import zohrevand.mahdi.taskmanager.view.taskList.TaskFragment.OnListFragmentInteractionListener
+import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent.DummyItem
 
 import kotlinx.android.synthetic.main.fragment_task.view.*
 
