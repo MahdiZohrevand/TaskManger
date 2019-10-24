@@ -1,4 +1,4 @@
-package zohrevand.mahdi.taskmanager.view.TaskList.dummy
+package zohrevand.mahdi.taskmanager.view.taskList.dummy
 
 import java.util.ArrayList
 import java.util.HashMap
@@ -36,7 +36,7 @@ object DummyContent {
     }
 
     private fun createDummyItem(position: Int): DummyItem {
-        return DummyItem(position.toString(), "Item " + position, makeDetails(position))
+        return DummyItem(position.toString(), "تست " + position, makeDetails(position))
     }
 
     private fun makeDetails(position: Int): String {
