@@ -19,9 +19,15 @@
 
     <fragment
             android:id="@+id/nav_timer"
-            android:name="zohrevand.mahdi.taskmanager.view.timer.SlideshowFragment"
+            android:name="zohrevand.mahdi.taskmanager.view.timer.TimerFragment"
             android:label="@string/menu_timer"
-            tools:layout="@layout/fragment_slideshow" />
+            tools:layout="@layout/fragment_slideshow" >
+        <argument
+                android:name="Task"
+                app:argType="zohrevand.mahdi.taskmanager.business.Task"
+                app:nullable="true"
+                android:defaultValue="@null" />
+    </fragment>
 
     <fragment
             android:id="@+id/nav_statistic"
@@ -33,7 +39,11 @@
             android:id="@+id/nav_tasks"
             android:name="zohrevand.mahdi.taskmanager.view.taskList.TaskFragment"
             android:label="تسک ها"
-            tools:layout="@layout/fragment_task_list" />
+            tools:layout="@layout/fragment_task_list" >
+        <action
+                android:id="@+id/action_nav_tasks_to_nav_timer"
+                app:destination="@id/nav_timer" />
+    </fragment>
 
     <fragment
             android:id="@+id/nav_share"

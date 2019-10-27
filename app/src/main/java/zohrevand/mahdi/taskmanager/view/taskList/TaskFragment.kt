@@ -3,30 +3,26 @@ package zohrevand.mahdi.taskmanager.view.taskList
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 import zohrevand.mahdi.taskmanager.R
+import zohrevand.mahdi.taskmanager.business.Task
 
 import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
-import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent.DummyItem
 
 /**
  * A fragment representing a list of Task.
  * Activities containing this fragment MUST implement the
  * [TaskFragment.OnListFragmentInteractionListener] interface.
  */
-public class TaskFragment : Fragment() {
+class TaskFragment : Fragment() {
 
-
-    private var columnCount = 1
 
     private var listener: OnListFragmentInteractionListener? = null
 
@@ -34,10 +30,6 @@ public class TaskFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
 
         println(viewModel.getTest())
     }
@@ -54,32 +46,25 @@ public class TaskFragment : Fragment() {
         //float action button navigate to new task
         fab.setOnClickListener {
             navController.navigate(R.id.nav_new_task)
-            /*  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                  .setAction("Action", null).show()*/
         }
 
         // Set the adapter
         if (recyclerView != null) {
             with(recyclerView) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyTaskRecyclerViewAdapter(DummyContent.ITEMS, listener)
+                layoutManager = LinearLayoutManager(context)
+                adapter = MyTaskRecyclerViewAdapter(DummyContent.ITEMS,
+                    object : OnListFragmentInteractionListener {
+                        override fun onListFragmentInteraction(item: Task) {
+                            val action = TaskFragmentDirections.actionNavTasksToNavTimer()
+                            action.task = item
+                            navController.navigate(action)
+
+                        }
+
+                    })
             }
         }
-/*
 
-        recyclerView.addOnScrollListener(object : OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0)
-                    fab.hide()
-                else if (dy < 0)
-                    fab.show()
-            }
-        })
-*/
 
 
         return view
@@ -112,7 +97,7 @@ public class TaskFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(item: Task)
     }
 
     companion object {

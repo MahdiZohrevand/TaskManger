@@ -9,17 +9,17 @@ import zohrevand.mahdi.taskmanager.R
 
 
 import zohrevand.mahdi.taskmanager.view.taskList.TaskFragment.OnListFragmentInteractionListener
-import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent.DummyItem
 
 import kotlinx.android.synthetic.main.fragment_task.view.*
+import zohrevand.mahdi.taskmanager.business.Task
 
 /**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a [Task] and makes a call to the
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
 class MyTaskRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,
+    private val mValues: List<Task>,
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
 
@@ -27,7 +27,7 @@ class MyTaskRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
+            val item = v.tag as Task
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
@@ -42,8 +42,8 @@ class MyTaskRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
+        holder.mIdView.text = item.taskId.toString()
+        holder.mContentView.text = item.title
 
         with(holder.mView) {
             tag = item

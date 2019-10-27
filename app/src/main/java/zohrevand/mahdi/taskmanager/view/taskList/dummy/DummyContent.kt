@@ -1,5 +1,6 @@
 package zohrevand.mahdi.taskmanager.view.taskList.dummy
 
+import zohrevand.mahdi.taskmanager.business.Task
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -14,12 +15,12 @@ object DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    val ITEMS: MutableList<DummyItem> = ArrayList()
+    val ITEMS: MutableList<Task> = ArrayList()
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
+    val ITEM_MAP: MutableMap<String, Task> = HashMap()
 
     private val COUNT = 25
 
@@ -30,13 +31,13 @@ object DummyContent {
         }
     }
 
-    private fun addItem(item: DummyItem) {
+    private fun addItem(item: Task) {
         ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+        ITEM_MAP.put(item.taskId.toString(), item)
     }
 
-    private fun createDummyItem(position: Int): DummyItem {
-        return DummyItem(position.toString(), "تست " + position, makeDetails(position))
+    private fun createDummyItem(position: Int): Task {
+        return Task("عنوان" + position.toString(), "توضیحات" + position)
     }
 
     private fun makeDetails(position: Int): String {
@@ -48,10 +49,5 @@ object DummyContent {
         return builder.toString()
     }
 
-    /**
-     * A dummy item representing a piece of content.
-     */
-    data class DummyItem(val id: String, val content: String, val details: String) {
-        override fun toString(): String = content
-    }
+
 }
