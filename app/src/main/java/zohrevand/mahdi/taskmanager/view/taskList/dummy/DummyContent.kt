@@ -37,7 +37,7 @@ object DummyContent {
     }
 
     private fun createDummyItem(position: Int): Task {
-        return Task("عنوان" + position.toString(), "توضیحات" + position)
+        return Task("عنوان" + position.toString(), "توضیحات" + position,position.toLong(),createDate = 1000L)
     }
 
     private fun makeDetails(position: Int): String {
