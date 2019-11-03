@@ -56,4 +56,9 @@
             android:name="zohrevand.mahdi.taskmanager.view.about.SendFragment"
             android:label="@string/menu_about"
             tools:layout="@layout/fragment_send" />
+    <fragment
+            android:id="@+id/nav_age"
+            android:name="zohrevand.mahdi.taskmanager.view.age.AgeFragment"
+            android:label="age_fragment"
+            tools:layout="@layout/age_fragment" />
 </navigation>
