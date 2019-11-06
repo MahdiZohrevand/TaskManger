@@ -6,13 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 
 import zohrevand.mahdi.taskmanager.R
+import zohrevand.mahdi.taskmanager.databinding.AgeFragmentBinding
+import zohrevand.mahdi.taskmanager.utils.onItemSelected
 import zohrevand.mahdi.taskmanager.utils.setNumberAdapter
 
 class AgeFragment : Fragment() {
+
+
+    private lateinit var binding: AgeFragmentBinding
 
 
     companion object {
@@ -25,34 +34,46 @@ class AgeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.age_fragment, container, false)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.age_fragment, container, false)
+        binding.apply {
+            yearSpinner.setNumberAdapter(1300, 1398)
+            monthSpinner.setNumberAdapter(1, 12)
+            daySpinner.setNumberAdapter(1, 31)
+
+
+            yearSpinner.onItemSelected {
+                viewModel?.year = it
+            }
+
+            monthSpinner.onItemSelected {
+                viewModel?.month = it
+            }
+
+            daySpinner.onItemSelected {
+                viewModel?.day = it
+            }
+
+
+        }
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val yearSpinner: Spinner = view.findViewById(R.id.year_spinner)
-        val monthSpinner: Spinner = view.findViewById(R.id.month_spinner)
-        val daySpinner: Spinner = view.findViewById(R.id.day_spinner)
-        yearSpinner.setNumberAdapter(1300, 1398)
-        monthSpinner.setNumberAdapter(1, 12)
-        daySpinner.setNumberAdapter(1, 31)
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AgeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
-    private fun setNumberAdapterForSpinner(spinner: Spinner, min: Int, max: Int) {
-        val numberList = mutableListOf<Int>()
-        for (element in max downTo min) {
-            numberList.add(element)
-        }
-        val adapter =
-            ArrayAdapter<Int>(context!!, android.R.layout.simple_spinner_dropdown_item, numberList)
-        spinner.adapter = adapter
+        binding.viewModel = viewModel
+
+        viewModel.userAge.observe(this , Observer {
+            binding.userAgeTxt.text = it
+        })
     }
 
 

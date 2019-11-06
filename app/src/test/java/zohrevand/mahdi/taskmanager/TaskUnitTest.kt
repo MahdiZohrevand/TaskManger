@@ -3,7 +3,6 @@ package zohrevand.mahdi.taskmanager
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import com.nhaarman.mockito_kotlin.mock
 import org.junit.Test
 
 import org.junit.Assert.*

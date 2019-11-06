@@ -1,7 +1,12 @@
-package com.example.android.trackmysleepquality.sleeptracker;
+package zohrevand.mahdi.taskmanager.utils;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
+
+
+import androidx.annotation.NonNull;
+
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.Period;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -13,20 +18,20 @@ import java.util.GregorianCalendar;
  * persian date
  *
  * @author Nasser Sadeqi (nasser_sadeqi@yahoo.com)
- *
- *         Developed by Hosein Bitaraf (hobby.110@gmail.com) : We use "Calendar" java class for show
- *         our persian calendar.
+ * <p>
+ * Developed by Hosein Bitaraf (hobby.110@gmail.com) : We use "Calendar" java class for show
+ * our persian calendar.
  */
 
-public class PersianCalendar implements Serializable  {
+public class PersianCalendar implements Serializable {
 
     //****************************************************************//
     // public Static Variables
     //****************************************************************//
-    public static int g_days_in_month[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30,
-            31, 30, 31 };
-    public static int j_days_in_month[] = { 31, 31, 31, 31, 31, 31, 30, 30, 30,
-            30, 30, 29 };
+    public static int g_days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30,
+            31, 30, 31};
+    public static int j_days_in_month[] = {31, 31, 31, 31, 31, 31, 30, 30, 30,
+            30, 30, 29};
 
     public static final int SATARDAY = 1;
     public static final int SUNDAY = 2;
@@ -44,8 +49,8 @@ public class PersianCalendar implements Serializable  {
 
     private static double greg_len = 365.2425;
     private static double greg_origin_from_jalali_base = 629964;
-    private static String greg_month_names[] = { "", "Jan", "Feb", "Mar",
-            "Apr", "May", "June", "Jul", "A ug", "Sep", "Oct", "Nov", "Dec" };
+    private static String greg_month_names[] = {"", "Jan", "Feb", "Mar",
+            "Apr", "May", "June", "Jul", "A ug", "Sep", "Oct", "Nov", "Dec"};
 
     private int _year;
     private int _month;
@@ -61,6 +66,7 @@ public class PersianCalendar implements Serializable  {
     //****************************************************************//
     // Static functions
     //****************************************************************//
+
     /**
      * Converts specified gregorian date to persian date in form of (yyyy/mm/dd)
      */
@@ -98,7 +104,9 @@ public class PersianCalendar implements Serializable  {
                 gc.get(Calendar.DAY_OF_MONTH));
     }
 
-    /** Returns persian year according to specified gregorian date. */
+    /**
+     * Returns persian year according to specified gregorian date.
+     */
     public static int getPersianYear(Date dt) {
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(dt);
@@ -139,14 +147,16 @@ public class PersianCalendar implements Serializable  {
         // Modified by "Hosein Bitaraf" At 5/6/2012
         //
         int day = getPersianDayOfMonth(dt);
-        if( day == 1){
+        if (day == 1) {
             month++;
         }
 
         return month;
     }
 
-    /** Returns day number (1..31) */
+    /**
+     * Returns day number (1..31)
+     */
     public static int getPersianDayOfMonth(Date dt) {
         GregorianCalendar gc = new GregorianCalendar();
         gc.setTime(dt);
@@ -163,7 +173,7 @@ public class PersianCalendar implements Serializable  {
         return (int) dayOfMonth(j_days_of_year);
     }
 
-    public static int getdifference(Date start, Date current) {
+    public static int getDifference(@NonNull Date start, @NonNull Date current) {
         Date[] datesofcperiod;
         double startdayofyear, currentdatofyear;
         int def = 0, periodnm = 0;
@@ -181,7 +191,7 @@ public class PersianCalendar implements Serializable  {
      * to set calendar with correct format. it is because "Calendar" class works
      * with subtract one from real month. eq: January = 0 or in our case eq:
      * Farvardin = 0
-     * */
+     */
     public static Calendar getPersianCalendar(Calendar gre) {
         Calendar persianCalendar = Calendar.getInstance();
         persianCalendar.set(getPersianYear(gre.getTime()),
@@ -192,7 +202,7 @@ public class PersianCalendar implements Serializable  {
 
     /**
      * Converts Persian date to gregorian date
-     * */
+     */
     public static Calendar getGregorianCalendar(int year, int month, int day) {
 
         int gy, gm, gd;
@@ -215,15 +225,14 @@ public class PersianCalendar implements Serializable  {
         g_day_no = j_day_no + 79;
 
         gy = (int) (1600 + 400 * (g_day_no / 146097)); /*
-														 * 146097 = 365*400 +
-														 * 400/4 - 400/100 +
-														 * 400/400
-														 */
+         * 146097 = 365*400 +
+         * 400/4 - 400/100 +
+         * 400/400
+         */
         g_day_no = g_day_no % 146097;
 
         leap = true;
-        if (g_day_no >= 36525) /* 36525 = 365*100 + 100/4 */
-        {
+        if (g_day_no >= 36525) /* 36525 = 365*100 + 100/4 */ {
             g_day_no--;
             gy += 100 * (g_day_no / 36524); /* 36524 = 365*100 + 100/4 - 100/100 */
             g_day_no = g_day_no % 36524;
@@ -252,12 +261,12 @@ public class PersianCalendar implements Serializable  {
         gm = i + 1;
         gd = (int) (g_day_no + 1);
 
-        GregorianCalendar gregorian = new  GregorianCalendar(gy, gm - 1, gd);
+        GregorianCalendar gregorian = new GregorianCalendar(gy, gm - 1, gd);
         return gregorian;
     }
 
-    public static Calendar getGregorainCalendar(int year, int month, int day, int hour, int minute, int second){
-        GregorianCalendar gregorian =  (GregorianCalendar) getGregorianCalendar(year, month, day);
+    public static Calendar getGregorainCalendar(int year, int month, int day, int hour, int minute, int second) {
+        GregorianCalendar gregorian = (GregorianCalendar) getGregorianCalendar(year, month, day);
 
         gregorian.set(Calendar.HOUR_OF_DAY, hour);
         gregorian.set(Calendar.MINUTE, minute);
@@ -267,11 +276,34 @@ public class PersianCalendar implements Serializable  {
 
     }
 
-    public static Calendar getGregorianCalendar(PersianCalendar jalali){
+    public static Calendar getGregorianCalendar(PersianCalendar jalali) {
         GregorianCalendar gregorian = (GregorianCalendar) getGregorainCalendar(jalali.getYear(), jalali.getMonth(), jalali.getDay(),
                 jalali.getHour(), jalali.getMinute(), jalali.getSecond());
 
         return gregorian;
+    }
+
+
+    public static Period getPeriodOfTwoTime(Calendar start, Calendar end) {
+        long differMillisecond = start.getTimeInMillis() - end.getTimeInMillis();
+        Calendar differDate = Calendar.getInstance();
+        differDate.setTimeInMillis(differMillisecond);
+
+
+        LocalDate localDateBirth = LocalDate.of(
+                start.get(Calendar.YEAR),
+                start.get(Calendar.MONTH),
+                start.get(Calendar.DAY_OF_MONTH)
+        );
+
+        LocalDate localDateNow = LocalDate.of(
+                end.get(Calendar.YEAR),
+                end.get(Calendar.MONTH),
+                end.get(Calendar.DAY_OF_MONTH)
+        );
+
+        return Period.between(localDateBirth, localDateNow);
+
     }
 
     public static String getDayOfWeek(Date d) {
@@ -296,7 +328,7 @@ public class PersianCalendar implements Serializable  {
         return null;
     }
 
-    public static int getDayOfWeek(int gregorianDayOfWeek){
+    public static int getDayOfWeek(int gregorianDayOfWeek) {
         int persianDayOfWeek;
         switch (gregorianDayOfWeek) {
             case 7:
@@ -363,8 +395,8 @@ public class PersianCalendar implements Serializable  {
     }
 
     private static double getGregDayOfYear(double year, double month, double day) {
-        int greg_moneths_len[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31,
-                30, 31 };
+        int greg_moneths_len[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31,
+                30, 31};
         boolean leap = false;
         if (((year % 4) == 0) && (((year % 400) != 0)))
             leap = true;
@@ -376,7 +408,7 @@ public class PersianCalendar implements Serializable  {
         return sum + day - 2;
     }
 
-    private void syncPersianCalendarWithGregorian(){
+    private void syncPersianCalendarWithGregorian() {
         _year = getPersianYear(_gregorianCalendar.getTime());
 
         _month = getPersianMonth(_gregorianCalendar.getTime());
@@ -384,7 +416,7 @@ public class PersianCalendar implements Serializable  {
         _dayOfMonth = getPersianDayOfMonth(_gregorianCalendar.getTime());
     }
 
-    public void syncGregorianWithPersianCalendar(){
+    public void syncGregorianWithPersianCalendar() {
         _gregorianCalendar = getGregorianCalendar(_year, _month, _dayOfMonth);
         _gregorianCalendar.set(Calendar.HOUR_OF_DAY, _hour);
         _gregorianCalendar.set(Calendar.MINUTE, _minute);
@@ -398,7 +430,7 @@ public class PersianCalendar implements Serializable  {
 
     /**
      * Constructor
-     * */
+     */
     public PersianCalendar(Calendar gregorian) {
         _gregorianCalendar = Calendar.getInstance();
 
@@ -416,36 +448,36 @@ public class PersianCalendar implements Serializable  {
 
     }
 
-    public PersianCalendar(){
+    public PersianCalendar() {
         setPersainCalendarWithJalali(1390, 1, 1);
     }
 
     /**
      * arg should be without hour and minute and second. eq: 14-6-1391
-     * */
-    public PersianCalendar(String jalaliString){
+     */
+    public PersianCalendar(String jalaliString) {
         String[] part = jalaliString.split("-");
         setPersainCalendarWithJalali(Integer.parseInt(part[2]), Integer.parseInt(part[1]),
                 Integer.parseInt(part[0]));
     }
 
-    public PersianCalendar(PersianCalendar jalali){
+    public PersianCalendar(PersianCalendar jalali) {
         setPersainCalendarWithJalali(jalali.getYear(), jalali.getMonth(), jalali.getDay(),
                 jalali.getHour(), jalali.getMinute(), jalali.getSecond());
     }
 
-    public PersianCalendar(int jalaliyear, int jalalimonth, int jalaliday){
+    public PersianCalendar(int jalaliyear, int jalalimonth, int jalaliday) {
         setPersainCalendarWithJalali(jalaliyear, jalalimonth, jalaliday);
     }
 
     public PersianCalendar(int jalaliyear, int jalalimonth, int jalaliday, int jalalihour,
-                           int jalalimintute, int jalalisecond){
+                           int jalalimintute, int jalalisecond) {
         setPersainCalendarWithJalali(jalaliyear, jalalimonth, jalaliday, jalalihour,
                 jalalimintute, jalalisecond);
     }
 
     public void setPersainCalendarWithJalali(int year, int month, int dayOfMonth, int hour,
-                                             int minute, int second){
+                                             int minute, int second) {
         _year = year;
         _month = month;
         _dayOfMonth = dayOfMonth;
@@ -459,7 +491,7 @@ public class PersianCalendar implements Serializable  {
                 hour, minute, second);
     }
 
-    public void setPersainCalendarWithJalali(int year, int month, int dayOfMonth){
+    public void setPersainCalendarWithJalali(int year, int month, int dayOfMonth) {
         _year = year;
         _month = month;
         _dayOfMonth = dayOfMonth;
@@ -470,7 +502,7 @@ public class PersianCalendar implements Serializable  {
         _gregorianCalendar = getGregorianCalendar(year, month, dayOfMonth);
     }
 
-    public void setPersianCalendar(Calendar gregorian){
+    public void setPersianCalendar(Calendar gregorian) {
         _gregorianCalendar = gregorian;
 
         _year = getPersianYear(gregorian.getTime());
@@ -486,21 +518,21 @@ public class PersianCalendar implements Serializable  {
         _second = gregorian.get(Calendar.SECOND);
     }
 
-    public void setHour(int hour){
+    public void setHour(int hour) {
 
         _hour = hour;
     }
 
-    public void setMinute(int minute){
+    public void setMinute(int minute) {
 
         _minute = minute;
     }
 
-    public void setSecond(int second){
+    public void setSecond(int second) {
         _second = second;
     }
 
-    public Calendar getGregorianCalendar(){
+    public Calendar getGregorianCalendar() {
         syncGregorianWithPersianCalendar();
         return _gregorianCalendar;
     }
@@ -532,7 +564,7 @@ public class PersianCalendar implements Serializable  {
 
     /**
      * Returns how much days are blank at start
-     * */
+     */
     public int getBlankDayAtMonthStarting() {
 
         Calendar firstDayOfMonth = getGregorianCalendar(_year, _month, 1);
@@ -544,7 +576,7 @@ public class PersianCalendar implements Serializable  {
         return blankDay;
     }
 
-    public int getDayOfWeek(){
+    public int getDayOfWeek() {
         int dayOfWeek;
         switch (_gregorianCalendar.get(Calendar.DAY_OF_WEEK)) {
             case 7:
@@ -582,19 +614,19 @@ public class PersianCalendar implements Serializable  {
         return dayOfWeek;
     }
 
-    public void add(int field, int value){
+    public void add(int field, int value) {
         _gregorianCalendar.add(field, value);
 
         syncPersianCalendarWithGregorian();
     }
 
     @SuppressLint("ParserError")
-    public boolean isEqual(PersianCalendar jalali){
+    public boolean isEqual(PersianCalendar jalali) {
         return _second == jalali.getSecond() && _minute == jalali.getMinute() && _hour == jalali.getHour() && _dayOfMonth == jalali.getDay()
                 && _month == jalali.getMonth() && _year == jalali.getYear();
     }
 
-    public int compareTo(PersianCalendar jalali){
+    public int compareTo(PersianCalendar jalali) {
         Calendar anotherCalendar = getGregorianCalendar(jalali);
         Calendar calendar = getGregorianCalendar(this);
 
@@ -604,8 +636,8 @@ public class PersianCalendar implements Serializable  {
     /**
      * this function is correct for years beetween  1343 and 1472
      * from: www.fa.wikipedia.org
-     * */
-    public boolean isLeapYear(){
+     */
+    public boolean isLeapYear() {
 
         switch (_year % 33) {
             case 1:
