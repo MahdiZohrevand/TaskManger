@@ -15,4 +15,8 @@
     <string name="menu_share">تنظیمات</string>
     <string name="menu_about">درباره</string>
     <string name="menu_age">سن</string>
+
+
+    <string name="age_preference">TASK_MANAGER_USER_AGE_PREFERENCE</string>
+
 </resources>
