@@ -20,8 +20,6 @@ class AgeViewModel : ViewModel() {
         val diff = PersianCalendar.getPeriodOfTwoTime(birthDate, rightNow)
 
         userAge.value = "${diff.years} سال ${diff.months} ماه ${diff.days} روز "
-
-
     }
 
 }

@@ -12,6 +12,8 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.databinding.AgeFragmentBinding
@@ -28,7 +30,7 @@ class AgeFragment : Fragment() {
         fun newInstance() = AgeFragment()
     }
 
-    private lateinit var viewModel: AgeViewModel
+    private val viewModel: AgeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +69,7 @@ class AgeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AgeViewModel::class.java)
+        //viewModel = ViewModelProviders.of(this).get(AgeViewModel::class.java)
 
         binding.viewModel = viewModel
 

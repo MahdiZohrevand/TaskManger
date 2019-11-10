@@ -11,10 +11,12 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.business.Task
 
 import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
+import zohrevand.mahdi.taskmanager.view.taskListpragmatic.TaskListVewModel
 
 /**
  * A fragment representing a list of Task.
@@ -26,12 +28,12 @@ class TaskFragment : Fragment() {
 
     private var listener: OnListFragmentInteractionListener? = null
 
-    private val viewModel: TaskListVewModel by inject()
+    private val listVewModel: TaskListVewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        println(viewModel.getTest())
+        println(listVewModel.getTest())
     }
 
     override fun onCreateView(
