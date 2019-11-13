@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.age_fragment.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -56,8 +57,17 @@ class AgeFragment : Fragment() {
                 viewModel?.day = it
             }
 
-
         }
+
+        viewModel.setSpinnerDate{year, month, day ->
+            with(binding){
+                yearSpinner.setSelection(year)
+                monthSpinner.setSelection(month)
+                daySpinner.setSelection(day)
+            }
+        }
+
+
 
         return binding.root
     }

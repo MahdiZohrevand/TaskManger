@@ -15,6 +15,7 @@ class AgeViewModel(val preferenceImp: UserAgePreferenceImp) : ViewModel() {
     val userAge = MutableLiveData<String>()
 
 
+
     init {
         val birthDateInMilli = preferenceImp.getUserBirthdateInMillisconds()
         if (birthDateInMilli > 1) {
@@ -23,6 +24,7 @@ class AgeViewModel(val preferenceImp: UserAgePreferenceImp) : ViewModel() {
             val rightNow = Calendar.getInstance()
             val diff = PersianCalendar.getPeriodOfTwoTime(birthDate, rightNow)
             userAge.value = "${diff.years} سال ${diff.months} ماه ${diff.days} روز "
+
         }
     }
 
@@ -34,6 +36,11 @@ class AgeViewModel(val preferenceImp: UserAgePreferenceImp) : ViewModel() {
         val diff = PersianCalendar.getPeriodOfTwoTime(birthDate, rightNow)
 
         userAge.value = "${diff.years} سال ${diff.months} ماه ${diff.days} روز "
+    }
+
+
+    fun setSpinnerDate(spinner: (year: Int, month: Int, day: Int) -> Unit) {
+        spinner(1, 2, 3)
     }
 
 }
