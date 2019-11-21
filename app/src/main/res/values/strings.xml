@@ -14,7 +14,8 @@
     <string name="menu_statistic">گزارش</string>
     <string name="menu_share">تنظیمات</string>
     <string name="menu_about">درباره</string>
-    <string name="menu_age">سن</string>
+    <string name="menu_age">محاسبه سن</string>
+    <string name="menu_tasks">تسک ها</string>
 
 
     <string name="age_preference">TASK_MANAGER_USER_AGE_PREFERENCE</string>
