@@ -89,6 +89,8 @@
         <Spinner
                 android:id="@+id/day_spinner"
                 style="@android:style/Widget.Holo.Light.Spinner"
+                getPosition="@{viewModel.dayLiveData}"
+                setPosition="@{viewModel.spinnerDayPosition}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -100,6 +102,8 @@
         <Spinner
                 android:id="@+id/month_spinner"
                 style="@android:style/Widget.Holo.Light.Spinner"
+                getPosition="@{viewModel.monthLiveData}"
+                setPosition="@{viewModel.spinnerMonthPosition}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -111,6 +115,8 @@
         <Spinner
                 android:id="@+id/year_spinner"
                 style="@android:style/Widget.Holo.Light.Spinner"
+                getPosition="@{viewModel.yearLiveData}"
+                setPosition="@{viewModel.spinnerYearPosition}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -124,7 +130,7 @@
                 android:id="@+id/user_age_calculate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.calculateAge()}"
+                android:onClick="@{() -> viewModel.onCalculateClick()}"
                 android:text="محاسبه"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -134,8 +140,9 @@
                 android:id="@+id/user_age_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                tools:text="user age test"
+                android:text="@{viewModel.userAge}"
                 android:textSize="28sp"
-                android:text="user age test"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_age_calculate" />
