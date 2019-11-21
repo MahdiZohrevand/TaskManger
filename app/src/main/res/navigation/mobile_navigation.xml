@@ -38,7 +38,7 @@
     <fragment
             android:id="@+id/nav_tasks"
             android:name="zohrevand.mahdi.taskmanager.view.taskList.TaskFragment"
-            android:label="تسک ها"
+            android:label="@string/menu_tasks"
             tools:layout="@layout/fragment_task_list" >
         <action
                 android:id="@+id/action_nav_tasks_to_nav_timer"
@@ -56,4 +56,9 @@
             android:name="zohrevand.mahdi.taskmanager.view.about.SendFragment"
             android:label="@string/menu_about"
             tools:layout="@layout/fragment_send" />
+    <fragment
+            android:id="@+id/nav_age"
+            android:name="zohrevand.mahdi.taskmanager.view.age.AgeFragment"
+            android:label="@string/menu_age"
+            tools:layout="@layout/age_fragment" />
 </navigation>

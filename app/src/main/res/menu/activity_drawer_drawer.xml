@@ -22,10 +22,16 @@
                 android:id="@+id/nav_statistic"
                 android:icon="@drawable/ic_chart_bar"
                 android:title="@string/menu_statistic" />
-      <!--  <item
-                android:id="@+id/nav_home"
-                android:icon="@drawable/ic_menu_camera"
-                android:title="@string/menu_home" />-->
+        <item
+                android:id="@+id/nav_age"
+                android:icon="@drawable/ic_human_greeting"
+                android:title="@string/menu_age"
+
+                />
+        <!--  <item
+                  android:id="@+id/nav_home"
+                  android:icon="@drawable/ic_menu_camera"
+                  android:title="@string/menu_home" />-->
 
 
     </group>
