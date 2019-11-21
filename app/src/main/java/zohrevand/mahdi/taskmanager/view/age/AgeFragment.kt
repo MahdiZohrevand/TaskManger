@@ -20,6 +20,7 @@ import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.databinding.AgeFragmentBinding
 import zohrevand.mahdi.taskmanager.utils.onItemSelected
 import zohrevand.mahdi.taskmanager.utils.setNumberAdapter
+import zohrevand.mahdi.taskmanager.utils.setPosition
 
 class AgeFragment : Fragment() {
 
@@ -39,53 +40,23 @@ class AgeFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.age_fragment, container, false)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         binding.apply {
-            yearSpinner.setNumberAdapter(1300, 1398)
-            monthSpinner.setNumberAdapter(1, 12)
-            daySpinner.setNumberAdapter(1, 31)
-
-
-            yearSpinner.onItemSelected {
-                viewModel?.year = it
-            }
-
-            monthSpinner.onItemSelected {
-                viewModel?.month = it
-            }
-
-            daySpinner.onItemSelected {
-                viewModel?.day = it
-            }
-
+            yearSpinner.setNumberAdapter(1300, 1398, true)
+            monthSpinner.setNumberAdapter(1, 12, false)
+            daySpinner.setNumberAdapter(1, 31, false)
         }
-
-        viewModel.setSpinnerDate{year, month, day ->
-            with(binding){
-                yearSpinner.setSelection(year)
-                monthSpinner.setSelection(month)
-                daySpinner.setSelection(day)
-            }
-        }
-
 
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProviders.of(this).get(AgeViewModel::class.java)
 
-        binding.viewModel = viewModel
 
-        viewModel.userAge.observe(this , Observer {
-            binding.userAgeTxt.text = it
-        })
     }
 
 
