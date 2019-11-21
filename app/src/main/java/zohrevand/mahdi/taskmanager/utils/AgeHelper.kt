@@ -6,7 +6,7 @@ private val useIt = 1
 
 
 /**
- * calculate user age form birth date in millisecond
+ * calculate age form birth date in millisecond
  * @param birthDateInMillSec user birth date in millisecond
  * @param spinnerPosition call back for adapter position
  */
@@ -29,16 +29,29 @@ fun calculateAge(
 }
 
 /**
- * calculate user age from Persian date
- *  @param year user birth date year in Shamsi like : 1364
- *  @param month user birth date month in Shamsi 1..12
- *  @param day user birth date day in Shamsi 1..31
+ * calculate age from Persian date
+ * @param year user birth date year in Shamsi like : 1364
+ * @param month user birth date month in Shamsi 1..12
+ * @param day user birth date day in Shamsi 1..31
  */
 fun calculateAge(year: Int, month: Int, day: Int): String {
     val birthDate = PersianCalendar.getGregorianCalendar(year, month, day)
     val rightNow = Calendar.getInstance()
     val diff = PersianCalendar.getPeriodOfTwoTime(birthDate, rightNow)
     return "${diff.years} سال ${diff.months} ماه ${diff.days} روز "
+}
+
+
+/**
+ * convert Persian date to millisecond
+ * @param year user birth date year in Shamsi like : 1364
+ * @param month user birth date month in Shamsi 1..12
+ * @param day user birth date day in Shamsi 1..31
+ * @return date in millisecond
+ */
+fun convertPersianDateToMillisecond(year: Int, month: Int, day: Int): Long {
+    val birthDate = PersianCalendar.getGregorianCalendar(year, month, day)
+    return birthDate.timeInMillis
 }
 
 

@@ -3,9 +3,8 @@ package zohrevand.mahdi.taskmanager.view.age
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import zohrevand.mahdi.taskmanager.dataAccess.preferences.UserAgePreferenceImp
-import zohrevand.mahdi.taskmanager.utils.PersianCalendar
-import zohrevand.mahdi.taskmanager.utils.ageInMillisecond
 import zohrevand.mahdi.taskmanager.utils.calculateAge
+import zohrevand.mahdi.taskmanager.utils.convertPersianDateToMillisecond
 import java.util.*
 
 //TODO preferenceImp must be replace with interface not implementation
@@ -57,7 +56,7 @@ class AgeViewModel(val preferenceImp: UserAgePreferenceImp) : ViewModel() {
 
 
     fun onCalculateClick() {
-        preferenceImp.setUserBirthdateInMillisconds(ageInMillisecond(year, month, day))
+        preferenceImp.setUserBirthdateInMillisconds(convertPersianDateToMillisecond(year, month, day))
         userAge.value = calculateAge(year, month, day)
     }
 
