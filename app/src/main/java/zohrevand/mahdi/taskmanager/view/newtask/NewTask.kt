@@ -4,28 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import zohrevand.mahdi.taskmanager.R
+import zohrevand.mahdi.taskmanager.databinding.FragmentNewTaskBinding
 
 class NewTask : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var newTaskViewModel: NewTaskViewModel
+    private lateinit var binding: FragmentNewTaskBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-            ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        galleryViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        return root
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_task, container, false)
+
+        newTaskViewModel = ViewModelProviders.of(this).get(NewTaskViewModel::class.java)
+
+        binding.lifecycleOwner = this
+
+        binding.viewModel = newTaskViewModel
+
+        return binding.root
     }
 }
