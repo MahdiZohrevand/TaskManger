@@ -24,7 +24,7 @@ val mainModule = module {
     }
 
     viewModel{
-        NewTaskViewModel()
+        NewTaskViewModel(get())
     }
 
     viewModel<TaskListVewModel>()
