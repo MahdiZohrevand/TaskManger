@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
+import org.koin.android.viewmodel.ext.android.viewModel
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.databinding.FragmentNewTaskBinding
 
 class NewTask : Fragment() {
 
-    private lateinit var newTaskViewModel: NewTaskViewModel
+    private val newTaskViewModel: NewTaskViewModel by viewModel()
     private lateinit var binding: FragmentNewTaskBinding
 
     override fun onCreateView(
@@ -22,8 +24,6 @@ class NewTask : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_task, container, false)
-
-        newTaskViewModel = ViewModelProviders.of(this).get(NewTaskViewModel::class.java)
 
         binding.lifecycleOwner = this
 
