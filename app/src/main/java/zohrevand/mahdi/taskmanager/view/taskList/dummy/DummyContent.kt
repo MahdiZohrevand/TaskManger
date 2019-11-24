@@ -3,6 +3,7 @@ package zohrevand.mahdi.taskmanager.view.taskList.dummy
 import zohrevand.mahdi.taskmanager.business.Task
 import java.util.ArrayList
 import java.util.HashMap
+import java.util.concurrent.TimeUnit
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -37,7 +38,12 @@ object DummyContent {
     }
 
     private fun createDummyItem(position: Int): Task {
-        return Task("عنوان" + position.toString(), "توضیحات" + position,position.toLong(),createDate = 1000L)
+        return Task(
+            "عنوان" + position.toString(),
+            "توضیحات" + position,
+            position.toLong(),
+            spannedTime = converMinuteToMillisecond(position.toLong())
+        )
     }
 
     private fun makeDetails(position: Int): String {
@@ -48,6 +54,10 @@ object DummyContent {
         }
         return builder.toString()
     }
+
+
+    private fun converMinuteToMillisecond(minute: Long) =
+        TimeUnit.MINUTES.toMillis(minute)
 
 
 }

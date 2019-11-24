@@ -45,6 +45,7 @@ class MyTaskRecyclerViewAdapter(
         holder.mIdView.text = item.taskId.toString()
         holder.mContentView.text = item.title
 
+
         with(holder.mView) {
             tag = item
             setOnClickListener(mOnClickListener)
@@ -56,6 +57,7 @@ class MyTaskRecyclerViewAdapter(
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.item_number
         val mContentView: TextView = mView.content
+        val mTimeSpan : TextView = mView.elapsed_time
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
