@@ -8,9 +8,9 @@ import android.widget.TextView
 import zohrevand.mahdi.taskmanager.R
 
 
-import zohrevand.mahdi.taskmanager.view.taskList.TaskFragment.OnListFragmentInteractionListener
+import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
 
-import kotlinx.android.synthetic.main.fragment_task.view.*
+import kotlinx.android.synthetic.main.row_task_item.view.*
 import zohrevand.mahdi.taskmanager.business.Task
 
 /**
@@ -36,7 +36,7 @@ class MyTaskRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_task, parent, false)
+            .inflate(R.layout.row_task_item, parent, false)
         return ViewHolder(view)
     }
 
