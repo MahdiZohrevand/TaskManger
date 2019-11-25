@@ -12,6 +12,7 @@ import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragment
 
 import kotlinx.android.synthetic.main.row_task_item.view.*
 import zohrevand.mahdi.taskmanager.business.Task
+import zohrevand.mahdi.taskmanager.business.getCreateDate
 
 /**
  * [RecyclerView.Adapter] that can display a [Task] and makes a call to the
@@ -43,8 +44,8 @@ class MyTaskRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
         holder.mIdView.text = item.taskId.toString()
-        holder.mContentView.text = item.title
-
+        holder.mContentView.text = item.getCreateDate()
+        holder.mTimeSpan.text = item.getSpannedTime()
 
         with(holder.mView) {
             tag = item
@@ -57,7 +58,7 @@ class MyTaskRecyclerViewAdapter(
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.item_number
         val mContentView: TextView = mView.content
-        val mTimeSpan : TextView = mView.elapsed_time
+        val mTimeSpan: TextView = mView.elapsed_time
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"

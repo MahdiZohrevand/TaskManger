@@ -3,7 +3,6 @@ package zohrevand.mahdi.taskmanager
 import androidx.test.filters.SmallTest
 import org.junit.Test
 import zohrevand.mahdi.taskmanager.utils.PersianCalendar
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -37,6 +36,13 @@ class DateTest {
         //   println(simpleFormat(hour + minute))
     }
 
+    @Test
+    fun getDayAgo_test() {
+        val date = getDayBeforToday(4)
+        val calendar = PersianCalendar(Calendar.getInstance().apply { timeInMillis = date.timeInMillis })
+        println("${calendar.year}/${calendar.month}/${calendar.day}")
+    }
+
     private fun minuteToMilli(minute: Long) =
         TimeUnit.MINUTES.toMillis(minute)
 
@@ -46,7 +52,7 @@ class DateTest {
 
     private fun dayToMilli(day: Long) =
         TimeUnit.DAYS.toMillis(day)
-    
+
 
     fun millisecondToSpannedTimeConvert(millis: Long): String {
         var time = millis
@@ -62,6 +68,13 @@ class DateTest {
         sb.append(minutes)
 
         return sb.toString()
+    }
+
+
+    private fun getDayBeforToday(before: Int): Calendar {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -before)
+        return calendar
     }
 
 }

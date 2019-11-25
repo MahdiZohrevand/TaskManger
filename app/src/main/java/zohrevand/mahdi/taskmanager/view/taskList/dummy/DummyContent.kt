@@ -1,15 +1,14 @@
 package zohrevand.mahdi.taskmanager.view.taskList.dummy
 
+import org.threeten.bp.DateTimeUtils
 import zohrevand.mahdi.taskmanager.business.Task
-import java.util.ArrayList
-import java.util.HashMap
+import zohrevand.mahdi.taskmanager.utils.PersianCalendar
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
- *
- * TODO: Replace all uses of this class before publishing your app.
  */
 object DummyContent {
 
@@ -42,7 +41,8 @@ object DummyContent {
             "عنوان" + position.toString(),
             "توضیحات" + position,
             position.toLong(),
-            spannedTime = converMinuteToMillisecond(position.toLong())
+            spannedTime = converMinuteToMillisecond(position.toLong()),
+            createDate = getDayBeforToday(position)
         )
     }
 
@@ -59,5 +59,9 @@ object DummyContent {
     private fun converMinuteToMillisecond(minute: Long) =
         TimeUnit.MINUTES.toMillis(minute)
 
-
+    private fun getDayBeforToday(before : Int): Long {
+       val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR,-before)
+        return calendar.timeInMillis
+    }
 }
