@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.business.Task
@@ -21,9 +20,9 @@ import zohrevand.mahdi.taskmanager.view.taskListpragmatic.TaskListVewModel
 /**
  * A fragment representing a list of Task.
  * Activities containing this fragment MUST implement the
- * [TaskFragment.OnListFragmentInteractionListener] interface.
+ * [TaskListFragment.OnListFragmentInteractionListener] interface.
  */
-class TaskFragment : Fragment() {
+class TaskListFragment : Fragment() {
 
 
     private var listener: OnListFragmentInteractionListener? = null
@@ -57,7 +56,7 @@ class TaskFragment : Fragment() {
                 adapter = MyTaskRecyclerViewAdapter(DummyContent.ITEMS,
                     object : OnListFragmentInteractionListener {
                         override fun onListFragmentInteraction(item: Task) {
-                            val action = TaskFragmentDirections.actionNavTasksToNavTimer()
+                            val action = TaskListFragmentDirections.actionNavTasksToNavTimer()
                             action.task = item
                             navController.navigate(action)
 
@@ -110,7 +109,7 @@ class TaskFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            TaskFragment().apply {
+            TaskListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

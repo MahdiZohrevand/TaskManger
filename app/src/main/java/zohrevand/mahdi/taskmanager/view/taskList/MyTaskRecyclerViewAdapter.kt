@@ -8,10 +8,11 @@ import android.widget.TextView
 import zohrevand.mahdi.taskmanager.R
 
 
-import zohrevand.mahdi.taskmanager.view.taskList.TaskFragment.OnListFragmentInteractionListener
+import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
 
-import kotlinx.android.synthetic.main.fragment_task.view.*
+import kotlinx.android.synthetic.main.row_task_item.view.*
 import zohrevand.mahdi.taskmanager.business.Task
+import zohrevand.mahdi.taskmanager.business.getCreateDate
 
 /**
  * [RecyclerView.Adapter] that can display a [Task] and makes a call to the
@@ -36,14 +37,15 @@ class MyTaskRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_task, parent, false)
+            .inflate(R.layout.row_task_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
         holder.mIdView.text = item.taskId.toString()
-        holder.mContentView.text = item.title
+        holder.mContentView.text = item.getCreateDate()
+        holder.mTimeSpan.text = item.getSpannedTime()
 
         with(holder.mView) {
             tag = item
@@ -56,6 +58,7 @@ class MyTaskRecyclerViewAdapter(
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.item_number
         val mContentView: TextView = mView.content
+        val mTimeSpan: TextView = mView.elapsed_time
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
