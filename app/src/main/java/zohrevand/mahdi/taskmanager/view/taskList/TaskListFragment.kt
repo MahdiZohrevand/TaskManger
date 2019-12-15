@@ -15,7 +15,6 @@ import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.business.Task
 
 import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
-import zohrevand.mahdi.taskmanager.view.taskListpragmatic.TaskListVewModel
 
 /**
  * A fragment representing a list of Task.
