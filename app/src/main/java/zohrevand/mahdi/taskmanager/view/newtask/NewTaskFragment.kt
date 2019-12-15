@@ -12,7 +12,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.databinding.FragmentNewTaskBinding
 
-class NewTask : Fragment() {
+class NewTaskFragment : Fragment() {
 
     private val newTaskViewModel: NewTaskViewModel by viewModel()
     private lateinit var binding: FragmentNewTaskBinding
