@@ -5,6 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
 import org.junit.After
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -54,6 +55,8 @@ class DataBaseTest : KoinTest {
 
     @Test
     fun insertTaskAndDelete() {
+
+
         val taskModel = TaskModel(
             title = "must be deleted",
             description = "description",
@@ -61,8 +64,8 @@ class DataBaseTest : KoinTest {
         )
         db.tasksDao.insert(taskModel)
 
-
-        val loadedTask = getValue(db.tasksDao.getAllTask())[0]
+        val loadedTasks = getValue(db.tasksDao.getAllTask())
+        val loadedTask = loadedTasks[0]
 
         MatcherAssert.assertThat<TaskModel>(loadedTask, CoreMatchers.notNullValue())
         MatcherAssert.assertThat(loadedTask.title, CoreMatchers.`is`("must be deleted"))
@@ -76,25 +79,34 @@ class DataBaseTest : KoinTest {
     }
 
 
-
-
-
-
+    /**
+     *put three item in db and fetch them again and assert them
+     */
     @Test
     @Throws(Exception::class)
     fun getAllTask() {
-        fillDataBase()
+        db.tasksDao.clear()
+
+        val taskList = listOf(
+            TaskModel(title = "1", description = "1"),
+            TaskModel(title = "2", description = "2"),
+            TaskModel(title = "3", description = "3")
+        )
+        taskList.forEach {
+            db.tasksDao.insert(it)
+        }
+
+        //fillDataBase()
         val dbListLiveData = db.tasksDao.getAllTask()
         val dbList = getValue(dbListLiveData)
         dbList.forEach {
             println(it.title)
         }
-
-
-        // Assert.assertEquals(taskList, dbList)
+        for (i in dbList.indices){
+            Assert.assertEquals(dbList[i].title , taskList[i].title)
+        }
 
     }
-
 
 
     private fun fillDataBase() {
