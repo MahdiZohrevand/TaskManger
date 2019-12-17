@@ -22,4 +22,7 @@ interface TasksDao {
     @Query("SELECT * from task_table ORDER BY create_date_milli DESC")
     fun getAllTask(): LiveData<List<TaskModel>>
 
+    @Query("DELETE FROM task_table")
+    fun clear()
+
 }
