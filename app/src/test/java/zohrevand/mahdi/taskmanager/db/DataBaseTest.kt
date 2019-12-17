@@ -102,24 +102,12 @@ class DataBaseTest : KoinTest {
         dbList.forEach {
             println(it.title)
         }
-        for (i in dbList.indices){
-            Assert.assertEquals(dbList[i].title , taskList[i].title)
+        for (i in dbList.indices) {
+            Assert.assertEquals(dbList[i].title, taskList[i].title)
         }
 
     }
-
-
-    private fun fillDataBase() {
-        val taskList = listOf(
-            TaskModel(title = "1", description = "1"),
-            TaskModel(title = "2", description = "2"),
-            TaskModel(title = "3", description = "3")
-        )
-        taskList.forEach {
-            db.tasksDao.insert(it)
-        }
-    }
-
+    
     @After
     fun afterTest() {
         db.close()
