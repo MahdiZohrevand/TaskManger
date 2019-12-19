@@ -2,6 +2,7 @@ package zohrevand.mahdi.taskmanager.view.age
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import zohrevand.mahdi.taskmanager.dataAccess.preferences.UserAgePreference
 import zohrevand.mahdi.taskmanager.dataAccess.preferences.UserAgePreferenceImp
 import zohrevand.mahdi.taskmanager.utils.calculateAge
 import zohrevand.mahdi.taskmanager.utils.convertPersianDateToMillisecond
@@ -9,7 +10,7 @@ import java.util.*
 
 //TODO preferenceImp must be replace with interface not implementation
 
-class AgeViewModel(val preferenceImp: UserAgePreferenceImp) : ViewModel() {
+class AgeViewModel(val preferenceImp: UserAgePreference) : ViewModel() {
 
     private var year: Int = -1
     private var month: Int = -1

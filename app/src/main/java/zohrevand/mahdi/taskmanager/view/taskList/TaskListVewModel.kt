@@ -1,11 +1,12 @@
-package zohrevand.mahdi.taskmanager.view.taskListpragmatic
+package zohrevand.mahdi.taskmanager.view.taskList
 
 import androidx.lifecycle.ViewModel
 import zohrevand.mahdi.taskmanager.business.StopWatch
 import zohrevand.mahdi.taskmanager.business.Task
 import zohrevand.mahdi.taskmanager.business.TaskLogger
+import zohrevand.mahdi.taskmanager.dataAccess.TaskManagerDatabase
 
-class TaskListVewModel : ViewModel() {
+class TaskListVewModel(db : TaskManagerDatabase) : ViewModel() {
 
 
 

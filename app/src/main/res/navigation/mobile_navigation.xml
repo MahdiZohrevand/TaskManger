@@ -13,7 +13,7 @@
 
     <fragment
             android:id="@+id/nav_new_task"
-            android:name="zohrevand.mahdi.taskmanager.view.newtask.NewTask"
+            android:name="zohrevand.mahdi.taskmanager.view.newtask.NewTaskFragment"
             android:label="@string/menu_gallery"
             tools:layout="@layout/fragment_new_task" />
 

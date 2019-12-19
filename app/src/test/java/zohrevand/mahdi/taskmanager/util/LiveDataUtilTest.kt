@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package zohrevand.mahdi.taskmanager
+package zohrevand.mahdi.taskmanager.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
-object LiveDataTestUtil {
+
+
+object LiveDataUtilTest {
 
     /**
      * Get the value from a LiveData object. We're waiting for LiveData to emit, for 2 seconds.
