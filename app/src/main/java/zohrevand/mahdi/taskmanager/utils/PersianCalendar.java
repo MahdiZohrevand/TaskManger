@@ -637,39 +637,40 @@ public class PersianCalendar implements Serializable {
      * this function is correct for years beetween  1343 and 1472
      * from: www.fa.wikipedia.org
      */
-    public boolean isLeapYear() {
+    public static boolean isLeapYear(int year) {
+         boolean leap;
 
-        switch (_year % 33) {
+        switch (year % 33) {
             case 1:
-                _leap = true;
+                leap = true;
                 break;
             case 5:
-                _leap = true;
+                leap = true;
                 break;
             case 9:
-                _leap = true;
+                leap = true;
                 break;
             case 13:
-                _leap = true;
+                leap = true;
                 break;
             case 17:
-                _leap = true;
+                leap = true;
                 break;
             case 22:
-                _leap = true;
+                leap = true;
                 break;
             case 26:
-                _leap = true;
+                leap = true;
                 break;
             case 30:
-                _leap = true;
+                leap = true;
                 break;
 
             default:
-                _leap = false;
+                leap = false;
                 break;
         }
-        return _leap;
+        return leap;
 
     }
 }
