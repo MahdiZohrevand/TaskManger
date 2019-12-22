@@ -1,9 +1,9 @@
 package zohrevand.mahdi.taskmanager.utils
 
+import org.threeten.bp.LocalDate
+import org.threeten.bp.Period
+import java.lang.Exception
 import java.util.*
-
-private val useIt = 1
-
 
 /**
  * calculate age form birth date in millisecond
@@ -16,29 +16,56 @@ fun calculateAge(
         , age: String
     ) -> Unit
 ) {
-    val birthDate = Calendar.getInstance()
-    birthDate.timeInMillis = birthDateInMillSec
-    val persianCalendar = PersianCalendar.getPersianCalendar(birthDate)
-    val rightNow = Calendar.getInstance()
-    val diff = PersianCalendar.getPeriodOfTwoTime(birthDate, rightNow)
-    val yearPosition = diff.years
-    val monthPosition = diff.months - 1
-    val dayPosition = persianCalendar.get(Calendar.DAY_OF_MONTH) - 1
-    val result = "${diff.years} سال ${diff.months} ماه ${diff.days} روز "
-    spinnerPosition(yearPosition, monthPosition, dayPosition, result)
+    val birthDate = Calendar.getInstance().apply { timeInMillis = birthDateInMillSec }
+    val persianCalendar = PersianCalendar(birthDate)
+    val currentPersianYear = PersianCalendar.getPersianYear(Calendar.getInstance().time)
+    val yearPosition = currentPersianYear - persianCalendar.year
+    val monthPosition = persianCalendar.month - 1
+    val dayPosition = persianCalendar.day - 1
+    val ageString =
+        calculatePeriod(persianCalendar.year, persianCalendar.month, persianCalendar.day)
+    spinnerPosition(yearPosition, monthPosition, dayPosition, ageString)
 }
 
+
 /**
- * calculate age from Persian date
+ * calculate period time between of now and given date
+ * you have to call  AndroidThreeTen.init(context)
+ * before use,i made call in application class
  * @param year user birth date year in Shamsi like : 1364
  * @param month user birth date month in Shamsi 1..12
  * @param day user birth date day in Shamsi 1..31
+ *
+ * @return string format of elapsed date in persian date format
  */
-fun calculateAge(year: Int, month: Int, day: Int): String {
+fun calculatePeriod(year: Int, month: Int, day: Int): String {
+
+    //check given date is correct
+    try {
+
+        //because PersianCalendar.isLeapYear() works correctly for years between 1343 and 1472 we assume
+        //years before 1343 are leap year
+        val isLeap: Boolean = if (year < 1343) {
+            true
+        } else {
+            PersianCalendar.isLeapYear(year)
+        }
+        monthChecker(month, day, isLeap)
+    } catch (e: MonthCheckerException) {
+        return "${e.message}"
+    }
+
+
     val birthDate = PersianCalendar.getGregorianCalendar(year, month, day)
-    val rightNow = Calendar.getInstance()
-    val diff = PersianCalendar.getPeriodOfTwoTime(birthDate, rightNow)
-    return "${diff.years} سال ${diff.months} ماه ${diff.days} روز "
+    val now = LocalDate.now()
+    val localBirth = LocalDate.of(
+        birthDate.get(Calendar.YEAR),
+        birthDate.get(Calendar.MONTH) + 1,
+        birthDate.get(Calendar.DAY_OF_MONTH)
+    )
+    val period = Period.between(localBirth, now)
+
+    return "${period.years} سال ${period.months} ماه ${period.days} روز "
 }
 
 
@@ -55,3 +82,15 @@ fun convertPersianDateToMillisecond(year: Int, month: Int, day: Int): Long {
 }
 
 
+/**
+ * check this month's max day and leap year
+ */
+@Throws(MonthCheckerException::class)
+fun monthChecker(month: Int, day: Int, isLeap: Boolean) {
+    when {
+        month > 6 && day > 30 -> throw(MonthCheckerException("این ماه ۳۱ روزه نیست"))
+        month == 12 && !isLeap && day > 29 -> throw(MonthCheckerException("این سال کبیسه نیست"))
+    }
+}
+
+class MonthCheckerException(message: String?) : Exception(message)
