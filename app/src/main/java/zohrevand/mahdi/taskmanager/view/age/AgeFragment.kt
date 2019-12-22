@@ -18,9 +18,11 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.databinding.AgeFragmentBinding
+import zohrevand.mahdi.taskmanager.utils.PersianCalendar
 import zohrevand.mahdi.taskmanager.utils.onItemSelected
 import zohrevand.mahdi.taskmanager.utils.setNumberAdapter
 import zohrevand.mahdi.taskmanager.utils.setPosition
+import java.util.*
 
 class AgeFragment : Fragment() {
 
@@ -43,7 +45,7 @@ class AgeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.apply {
-            yearSpinner.setNumberAdapter(1300, 1398, true)
+            yearSpinner.setNumberAdapter(1300, PersianCalendar(Calendar.getInstance()).year, true)
             monthSpinner.setNumberAdapter(1, 12, false)
             daySpinner.setNumberAdapter(1, 31, false)
         }
