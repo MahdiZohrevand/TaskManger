@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import zohrevand.mahdi.taskmanager.dataAccess.preferences.UserAgePreference
 import zohrevand.mahdi.taskmanager.dataAccess.preferences.UserAgePreferenceImp
 import zohrevand.mahdi.taskmanager.utils.calculateAge
+import zohrevand.mahdi.taskmanager.utils.calculatePeriod
 import zohrevand.mahdi.taskmanager.utils.convertPersianDateToMillisecond
 import java.util.*
 
-//TODO preferenceImp must be replace with interface not implementation
 
 class AgeViewModel(val preferenceImp: UserAgePreference) : ViewModel() {
 
@@ -57,8 +57,14 @@ class AgeViewModel(val preferenceImp: UserAgePreference) : ViewModel() {
 
 
     fun onCalculateClick() {
-        preferenceImp.setUserBirthdateInMillisconds(convertPersianDateToMillisecond(year, month, day))
-        userAge.value = calculateAge(year, month, day)
+        preferenceImp.setUserBirthdateInMillisconds(
+            convertPersianDateToMillisecond(
+                year,
+                month,
+                day
+            )
+        )
+        userAge.value = calculatePeriod(year, month, day)
     }
 
 }
