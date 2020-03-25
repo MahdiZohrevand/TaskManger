@@ -8,7 +8,7 @@ import android.widget.TextView
 import zohrevand.mahdi.taskmanager.R
 
 
-import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
+//import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
 
 import kotlinx.android.synthetic.main.row_task_item.view.*
 import zohrevand.mahdi.taskmanager.business.Task
@@ -20,8 +20,8 @@ import zohrevand.mahdi.taskmanager.business.getCreateDate
  * TODO: Replace the implementation with code for your data type.
  */
 class MyTaskRecyclerViewAdapter(
-    private val mValues: List<Task>,
-    private val mListener: OnListFragmentInteractionListener?
+    private val mValues: List<Task>
+  //  private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -31,7 +31,7 @@ class MyTaskRecyclerViewAdapter(
             val item = v.tag as Task
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
+          //  mListener?.onListFragmentInteraction(item)
         }
     }
 
