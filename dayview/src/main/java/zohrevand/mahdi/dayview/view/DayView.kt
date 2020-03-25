@@ -1,4 +1,4 @@
-package zohrevand.mahdi.customviewtest.view
+package zohrevand.mahdi.dayview.view
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
