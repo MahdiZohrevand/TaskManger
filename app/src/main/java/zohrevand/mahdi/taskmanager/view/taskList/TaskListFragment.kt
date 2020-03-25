@@ -11,8 +11,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.viewmodel.ext.android.viewModel
+import zohrevand.mahdi.customviewtest.model.Task
+import zohrevand.mahdi.dayview.view.DayView
 import zohrevand.mahdi.taskmanager.R
-import zohrevand.mahdi.taskmanager.business.Task
 
 import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
 
@@ -24,7 +25,8 @@ import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
 class TaskListFragment : Fragment() {
 
 
-    private var listener: OnListFragmentInteractionListener? = null
+
+   // private var listener: OnListFragmentInteractionListener? = null
 
     private val listVewModel: TaskListVewModel by viewModel()
 
@@ -39,7 +41,8 @@ class TaskListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
+        //val recyclerView = view.findViewById<RecyclerView>(R.id.list)
+        val dayView = view.findViewById<DayView>(R.id.day_view)
         val fab: FloatingActionButton = view.findViewById(R.id.fab)
         val navController = findNavController()
 
@@ -48,8 +51,10 @@ class TaskListFragment : Fragment() {
             navController.navigate(R.id.nav_new_task)
         }
 
+        dayView.addCalendarTask(Task(_tittle = "test" , _startTimeHour = 1f , _startTimeMinute = 0f, _endTimeHour = 2f , _endTimeMinute = 0f ))
+
         // Set the adapter
-        if (recyclerView != null) {
+       /* if (recyclerView != null) {
             with(recyclerView) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = MyTaskRecyclerViewAdapter(DummyContent.ITEMS,
@@ -63,7 +68,7 @@ class TaskListFragment : Fragment() {
 
                     })
             }
-        }
+        }*/
 
 
 
@@ -72,16 +77,16 @@ class TaskListFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
+    /*    if (context is OnListFragmentInteractionListener) {
             listener = context
         } else {
             // throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
+        }*/
     }
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
+        //listener = null
     }
 
     /**
@@ -95,10 +100,10 @@ class TaskListFragment : Fragment() {
      * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */
-    interface OnListFragmentInteractionListener {
+   /* interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onListFragmentInteraction(item: Task)
-    }
+    }*/
 
     companion object {
 
