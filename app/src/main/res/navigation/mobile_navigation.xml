@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mobile_navigation"
+        app:startDestination="@id/nav_tasks">
+
+    <fragment
+            android:id="@+id/nav_home"
+            android:name="zohrevand.mahdi.taskmanager.view.home.HomeFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home" />
+
+    <fragment
+            android:id="@+id/nav_new_task"
+            android:name="zohrevand.mahdi.taskmanager.view.newtask.NewTaskFragment"
+            android:label="@string/menu_gallery"
+            tools:layout="@layout/fragment_new_task" />
+
+    <fragment
+            android:id="@+id/nav_timer"
+            android:name="zohrevand.mahdi.taskmanager.view.timer.TimerFragment"
+            android:label="@string/menu_timer"
+            tools:layout="@layout/fragment_slideshow" >
+        <argument
+                android:name="Task"
+                app:argType="zohrevand.mahdi.taskmanager.business.Task"
+                app:nullable="true"
+                android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/nav_statistic"
+            android:name="zohrevand.mahdi.taskmanager.view.statistic.ToolsFragment"
+            android:label="@string/menu_statistic"
+            tools:layout="@layout/fragment_tools" />
+
+    <fragment
+            android:id="@+id/nav_tasks"
+            android:name="zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment"
+            android:label="@string/menu_tasks"
+            tools:layout="@layout/fragment_task_list" >
+        <action
+                android:id="@+id/action_nav_tasks_to_nav_timer"
+                app:destination="@id/nav_timer" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/nav_share"
+            android:name="zohrevand.mahdi.taskmanager.view.setting.ShareFragment"
+            android:label="@string/menu_share"
+            tools:layout="@layout/fragment_share" />
+
+    <fragment
+            android:id="@+id/nav_send"
+            android:name="zohrevand.mahdi.taskmanager.view.about.SendFragment"
+            android:label="@string/menu_about"
+            tools:layout="@layout/fragment_send" />
+    <fragment
+            android:id="@+id/nav_age"
+            android:name="zohrevand.mahdi.taskmanager.view.age.AgeFragment"
+            android:label="@string/menu_age"
+            tools:layout="@layout/age_fragment" />
+</navigation>

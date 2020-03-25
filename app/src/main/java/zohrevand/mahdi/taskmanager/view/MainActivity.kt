@@ -1,43 +1,40 @@
 package zohrevand.mahdi.taskmanager.view
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
 import zohrevand.mahdi.taskmanager.R
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var textView: TextView
-    private val job = Job()
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var drawerLayout: DrawerLayout
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        textView = findViewById(R.id.main_text)
+        setContentView(R.layout.activity_drawer)
 
 
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment)
 
-       /* GlobalScope.launch {
-            val result = get()
-            withContext(Dispatchers.Main){
-                textView.text = result
-            }
-        }*/
+        setSupportActionBar(toolbar)
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        NavigationUI.setupWithNavController(navView, navController)
 
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return NavigationUI.navigateUp(navController, drawerLayout)
 
-    private suspend fun changeText(){
-        val result = get()
-        textView.text = result
     }
 
-    private suspend fun get(): String {
-        delay(3000)
-        return "we done"
-    }
 }

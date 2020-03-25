@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="zohrevand.mahdi.taskmanager.view.age.AgeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="ltr"
+            tools:background="#FFCDD2"
+            tools:context=".view.age.AgeFragment">
+
+        <TextView
+                android:id="@+id/pls_set_ur_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="لطفا تاریخ تولد خود را مشخص کنید"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+        <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="pls_set_ur_birth"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="731dp" />
+
+        <!--year/month/day chain start-->
+
+        <TextView
+                android:id="@+id/year_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:text="سال"
+                app:layout_constraintLeft_toRightOf="@id/guideline1"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+        <TextView
+                android:id="@+id/month_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:text="ماه"
+                app:layout_constraintLeft_toRightOf="@id/guideline"
+                app:layout_constraintRight_toLeftOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+        <TextView
+                android:id="@+id/day_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="@dimen/fab_margin"
+                android:text="روز"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.3333"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.6666" />
+
+        <Spinner
+                android:id="@+id/day_spinner"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                getPosition="@{viewModel.dayLiveData}"
+                setPosition="@{viewModel.spinnerDayPosition}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/day_txt" />
+
+        <Spinner
+                android:id="@+id/month_spinner"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                getPosition="@{viewModel.monthLiveData}"
+                setPosition="@{viewModel.spinnerMonthPosition}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintLeft_toRightOf="@id/guideline"
+                app:layout_constraintRight_toLeftOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@id/month_txt" />
+
+        <Spinner
+                android:id="@+id/year_spinner"
+                style="@android:style/Widget.Holo.Light.Spinner"
+                getPosition="@{viewModel.yearLiveData}"
+                setPosition="@{viewModel.spinnerYearPosition}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintLeft_toRightOf="@id/guideline1"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/year_txt" />
+
+
+        <Button
+                android:id="@+id/user_age_calculate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onCalculateClick()}"
+                android:text="محاسبه"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/month_spinner" />
+
+        <TextView
+                android:id="@+id/user_age_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="user age test"
+                android:text="@{viewModel.userAge}"
+                android:textSize="28sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_age_calculate" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
