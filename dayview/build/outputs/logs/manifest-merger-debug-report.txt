@@ -1,37 +1,37 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
+ADDED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
 	package
-		ADDED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:2:5-38
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
+		ADDED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:2:5-38
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-		ADDED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-		ADDED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:1-2:41
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:1-2:41
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml:1:11-69
+		ADDED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml:1:11-69
 uses-sdk
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-		ADDED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-		ADDED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
-		INJECTED from /home/mahdi/WorkSpace/Android/TaskManager/dayview/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\AndroidManifest.xml
