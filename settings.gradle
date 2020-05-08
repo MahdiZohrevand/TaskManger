@@ -1,1 +1,2 @@
+include ':infinite-recycler-view'
 include ':app', ':dayview'
