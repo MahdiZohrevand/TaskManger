@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\res"/><source path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\build\generated\res\rs\debug"/><source path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\res"><file path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\res\values\attrs_custom_view.xml" qualifiers=""><declare-styleable name="DayView">
+        <attr format="dimension" name="textSize"/>
+        <attr format="color" name="rectColor"/>
+        <attr format="color" name="rectTextColor"/>
+        <attr format="color" name="hourBarColor"/>
+        <attr format="color" name="lineColor"/>
+        <attr format="dimension" name="rectMarginLeft"/>
+        <attr format="dimension" name="rectMarginRight"/>
+        <attr format="dimension" name="rectPaddingRight"/>
+        <attr format="dimension" name="rectPaddingLeft"/>
+        <attr format="dimension" name="rectPaddingTop"/>
+        <attr format="dimension" name="rectPaddingBottom"/>
+    </declare-styleable><declare-styleable name="MaterialRippleLayout">
+        <attr format="color" localization="suggested" name="mrl_rippleColor"/>
+        <attr format="dimension" localization="suggested" name="mrl_rippleDimension"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleOverlay"/>
+        <attr format="float" localization="suggested" name="mrl_rippleAlpha"/>
+        <attr format="integer" localization="suggested" name="mrl_rippleDuration"/>
+        <attr format="integer" localization="suggested" name="mrl_rippleFadeDuration"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleHover"/>
+        <attr format="color" localization="suggested" name="mrl_rippleBackground"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleDelayClick"/>
+        <attr format="boolean" localization="suggested" name="mrl_ripplePersistent"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleInAdapter"/>
+        <attr format="dimension" localization="suggested" name="mrl_rippleRoundedCorners"/>
+    </declare-styleable></file><file path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\main\res\values\strings.xml" qualifiers=""><string name="app_name">dayView</string></file></source><source path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\build\generated\res\rs\debug"/><source path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\build\generated\res\resValues\debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\debug\res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Mahdi\AndroidStudioProjects\TaskManger\dayview\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="MaterialRippleLayout">
+        <attr format="color" localization="suggested" name="mrl_rippleColor"/>
+        <attr format="dimension" localization="suggested" name="mrl_rippleDimension"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleOverlay"/>
+        <attr format="float" localization="suggested" name="mrl_rippleAlpha"/>
+        <attr format="integer" localization="suggested" name="mrl_rippleDuration"/>
+        <attr format="integer" localization="suggested" name="mrl_rippleFadeDuration"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleHover"/>
+        <attr format="color" localization="suggested" name="mrl_rippleBackground"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleDelayClick"/>
+        <attr format="boolean" localization="suggested" name="mrl_ripplePersistent"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleInAdapter"/>
+        <attr format="dimension" localization="suggested" name="mrl_rippleRoundedCorners"/>
+    </declare-styleable><declare-styleable name="DayView">
+        <attr format="dimension" name="textSize"/>
+        <attr format="color" name="rectColor"/>
+        <attr format="color" name="rectTextColor"/>
+        <attr format="color" name="hourBarColor"/>
+        <attr format="color" name="lineColor"/>
+        <attr format="dimension" name="rectMarginLeft"/>
+        <attr format="dimension" name="rectMarginRight"/>
+        <attr format="dimension" name="rectPaddingRight"/>
+        <attr format="dimension" name="rectPaddingLeft"/>
+        <attr format="dimension" name="rectPaddingTop"/>
+        <attr format="dimension" name="rectPaddingBottom"/>
+    </declare-styleable></configuration></mergedItems></merger>

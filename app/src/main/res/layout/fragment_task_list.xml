@@ -9,24 +9,14 @@
         tools:context=".view.MainActivity"
         tools:ignore="RtlHardcoded">
 
-    <!--  <androidx.recyclerview.widget.RecyclerView
-              android:id="@+id/list"
-              android:name="zohrevand.mahdi.taskmanager.view.TaskList.TaskFragment"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              app:layoutManager="LinearLayoutManager"
-              tools:context=".view.taskList.TaskListFragment"
-              tools:listitem="@layout/row_task_item" />
-  -->
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:name="zohrevand.mahdi.taskmanager.view.TaskList.TaskFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        <zohrevand.mahdi.dayview.view.DayView
-                android:id="@+id/day_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-    </ScrollView>
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".view.taskList.TaskListFragment"
+            tools:listitem="@layout/row_task_item" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

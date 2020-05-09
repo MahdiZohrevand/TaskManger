@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">dayView</string>
+    <declare-styleable name="DayView">
+        <attr format="dimension" name="textSize"/>
+        <attr format="color" name="rectColor"/>
+        <attr format="color" name="rectTextColor"/>
+        <attr format="color" name="hourBarColor"/>
+        <attr format="color" name="lineColor"/>
+        <attr format="dimension" name="rectMarginLeft"/>
+        <attr format="dimension" name="rectMarginRight"/>
+        <attr format="dimension" name="rectPaddingRight"/>
+        <attr format="dimension" name="rectPaddingLeft"/>
+        <attr format="dimension" name="rectPaddingTop"/>
+        <attr format="dimension" name="rectPaddingBottom"/>
+    </declare-styleable>
+    <declare-styleable name="MaterialRippleLayout">
+        <attr format="color" localization="suggested" name="mrl_rippleColor"/>
+        <attr format="dimension" localization="suggested" name="mrl_rippleDimension"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleOverlay"/>
+        <attr format="float" localization="suggested" name="mrl_rippleAlpha"/>
+        <attr format="integer" localization="suggested" name="mrl_rippleDuration"/>
+        <attr format="integer" localization="suggested" name="mrl_rippleFadeDuration"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleHover"/>
+        <attr format="color" localization="suggested" name="mrl_rippleBackground"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleDelayClick"/>
+        <attr format="boolean" localization="suggested" name="mrl_ripplePersistent"/>
+        <attr format="boolean" localization="suggested" name="mrl_rippleInAdapter"/>
+        <attr format="dimension" localization="suggested" name="mrl_rippleRoundedCorners"/>
+    </declare-styleable>
+</resources>

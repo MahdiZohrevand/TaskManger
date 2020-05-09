@@ -15,3 +15,5 @@
 *.log
 
 \.idea/dictionaries/
+
+.idea/

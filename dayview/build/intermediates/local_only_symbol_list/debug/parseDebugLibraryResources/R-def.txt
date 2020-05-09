@@ -1,0 +1,28 @@
+R_DEF: Internal format may change without notice
+local
+attr? hourBarColor
+attr? lineColor
+attr? mrl_rippleAlpha
+attr? mrl_rippleBackground
+attr? mrl_rippleColor
+attr? mrl_rippleDelayClick
+attr? mrl_rippleDimension
+attr? mrl_rippleDuration
+attr? mrl_rippleFadeDuration
+attr? mrl_rippleHover
+attr? mrl_rippleInAdapter
+attr? mrl_rippleOverlay
+attr? mrl_ripplePersistent
+attr? mrl_rippleRoundedCorners
+attr? rectColor
+attr? rectMarginLeft
+attr? rectMarginRight
+attr? rectPaddingBottom
+attr? rectPaddingLeft
+attr? rectPaddingRight
+attr? rectPaddingTop
+attr? rectTextColor
+attr? textSize
+string app_name
+styleable DayView textSize rectColor rectTextColor hourBarColor lineColor rectMarginLeft rectMarginRight rectPaddingRight rectPaddingLeft rectPaddingTop rectPaddingBottom
+styleable MaterialRippleLayout mrl_rippleColor mrl_rippleDimension mrl_rippleOverlay mrl_rippleAlpha mrl_rippleDuration mrl_rippleFadeDuration mrl_rippleHover mrl_rippleBackground mrl_rippleDelayClick mrl_ripplePersistent mrl_rippleInAdapter mrl_rippleRoundedCorners
