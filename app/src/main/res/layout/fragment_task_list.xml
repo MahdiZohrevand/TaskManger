@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
             tools:context=".view.taskList.TaskListFragment"
-            tools:listitem="@layout/row_task_item" />
+            tools:listitem="@layout/row_day_view" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
