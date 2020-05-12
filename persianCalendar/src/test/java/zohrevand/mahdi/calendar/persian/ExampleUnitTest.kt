@@ -10,8 +10,24 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
+    val helper = PersianDateHelper()
+
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+
+    @Test
+    fun date_helper_test() {
+        //get last day
+        println(helper.getPersianDate(-1))
+        //get today
+        println(helper.getPersianDate(0))
+        //get tomorrow
+        println(helper.getPersianDate(1))
+    }
+
+
 }
