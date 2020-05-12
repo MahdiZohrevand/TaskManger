@@ -448,7 +448,7 @@ public class PersianCalendar implements Serializable {
     }
 
     public PersianCalendar() {
-        setPersainCalendarWithJalali(1390, 1, 1);
+        setPersianCalendarWithJalali(1390, 1, 1);
     }
 
     /**
@@ -456,26 +456,26 @@ public class PersianCalendar implements Serializable {
      */
     public PersianCalendar(String jalaliString) {
         String[] part = jalaliString.split("-");
-        setPersainCalendarWithJalali(Integer.parseInt(part[2]), Integer.parseInt(part[1]),
+        setPersianCalendarWithJalali(Integer.parseInt(part[2]), Integer.parseInt(part[1]),
                 Integer.parseInt(part[0]));
     }
 
     public PersianCalendar(PersianCalendar jalali) {
-        setPersainCalendarWithJalali(jalali.getYear(), jalali.getMonth(), jalali.getDay(),
+        setPersianCalendarWithJalali(jalali.getYear(), jalali.getMonth(), jalali.getDay(),
                 jalali.getHour(), jalali.getMinute(), jalali.getSecond());
     }
 
     public PersianCalendar(int jalaliyear, int jalalimonth, int jalaliday) {
-        setPersainCalendarWithJalali(jalaliyear, jalalimonth, jalaliday);
+        setPersianCalendarWithJalali(jalaliyear, jalalimonth, jalaliday);
     }
 
     public PersianCalendar(int jalaliyear, int jalalimonth, int jalaliday, int jalalihour,
                            int jalalimintute, int jalalisecond) {
-        setPersainCalendarWithJalali(jalaliyear, jalalimonth, jalaliday, jalalihour,
+        setPersianCalendarWithJalali(jalaliyear, jalalimonth, jalaliday, jalalihour,
                 jalalimintute, jalalisecond);
     }
 
-    public void setPersainCalendarWithJalali(int year, int month, int dayOfMonth, int hour,
+    public void setPersianCalendarWithJalali(int year, int month, int dayOfMonth, int hour,
                                              int minute, int second) {
         _year = year;
         _month = month;
@@ -490,7 +490,7 @@ public class PersianCalendar implements Serializable {
                 hour, minute, second);
     }
 
-    public void setPersainCalendarWithJalali(int year, int month, int dayOfMonth) {
+    public void setPersianCalendarWithJalali(int year, int month, int dayOfMonth) {
         _year = year;
         _month = month;
         _dayOfMonth = dayOfMonth;
