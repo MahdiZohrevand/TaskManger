@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import zohrevand.mahdi.calendar.persian.PersianDateHelper
 
 
 //import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
@@ -22,6 +23,8 @@ class MyTaskRecyclerViewAdapter(
     //  private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
 
+    val persianDateHelper = PersianDateHelper()
+
     private val mOnClickListener: View.OnClickListener
 
     init {
@@ -38,7 +41,10 @@ class MyTaskRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        tasks[1].title = positionManager(position).toString()
+      //  tasks[1].title = positionManager(position).toString()
+        tasks[1].title = persianDateHelper.getPersianDate(positionManager(position))
+
+
         holder.bind(tasks[1])
     }
 
@@ -61,17 +67,7 @@ class MyTaskRecyclerViewAdapter(
     }
 
 
-    fun getToday(): Int {
-        return 0
-    }
-
-    fun getXDayLater(x: Int): String {
-        return "$x روز قبل "
-    }
-
-    fun getXDayBefore(x: Int): String {
-        return "$x روز بعد "
-    }
+ 
 
     /**
      * @return
