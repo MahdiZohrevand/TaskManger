@@ -2,7 +2,7 @@ package zohrevand.mahdi.taskmanager
 
 import androidx.test.filters.SmallTest
 import org.junit.Test
-import zohrevand.mahdi.taskmanager.utils.PersianCalendar
+import zohrevand.mahdi.calendar.persian.PersianCalendar
 import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
 import java.util.*
 

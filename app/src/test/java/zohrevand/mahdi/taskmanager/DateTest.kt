@@ -8,7 +8,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Period
-import zohrevand.mahdi.taskmanager.utils.PersianCalendar
+import zohrevand.mahdi.calendar.persian.PersianCalendar
 import java.util.*
 import java.util.concurrent.TimeUnit
 
