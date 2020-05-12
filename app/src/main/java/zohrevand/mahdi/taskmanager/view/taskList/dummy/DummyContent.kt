@@ -2,7 +2,6 @@ package zohrevand.mahdi.taskmanager.view.taskList.dummy
 
 import org.threeten.bp.DateTimeUtils
 import zohrevand.mahdi.taskmanager.business.Task
-import zohrevand.mahdi.taskmanager.utils.PersianCalendar
 import java.util.*
 import java.util.concurrent.TimeUnit
 
