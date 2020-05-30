@@ -1,5 +1,6 @@
 package zohrevand.mahdi.dayview
 
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
@@ -17,8 +18,11 @@ import org.junit.Assert.*
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
+        print("test")
+        Log.i("test" , "test")
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("zohrevand.mahdi.dayview.test", appContext.packageName)
+
     }
 }
