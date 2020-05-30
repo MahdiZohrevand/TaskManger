@@ -285,8 +285,8 @@ public class PersianCalendar implements Serializable {
 
     public static Period getPeriodOfTwoTime(Calendar start, Calendar end) {
         long differMillisecond = start.getTimeInMillis() - end.getTimeInMillis();
-        Calendar differDate = Calendar.getInstance();
-        differDate.setTimeInMillis(differMillisecond);
+       // Calendar differDate = Calendar.getInstance();
+       // differDate.setTimeInMillis(differMillisecond);
 
 
         LocalDate localDateBirth = LocalDate.of(
@@ -294,6 +294,8 @@ public class PersianCalendar implements Serializable {
                 start.get(Calendar.MONTH),
                 start.get(Calendar.DAY_OF_MONTH)
         );
+
+
 
         LocalDate localDateNow = LocalDate.of(
                 end.get(Calendar.YEAR),

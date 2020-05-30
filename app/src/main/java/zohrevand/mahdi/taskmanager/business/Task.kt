@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 @Parcelize
 class Task(
     var title: String,
-    val description: String,
+    var description: String,
     //all date and time are in millisecond
     val taskId: Long = -1,
     var finishDate: Long = -1,

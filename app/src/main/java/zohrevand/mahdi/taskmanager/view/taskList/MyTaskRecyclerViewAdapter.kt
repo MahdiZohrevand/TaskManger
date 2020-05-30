@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import zohrevand.mahdi.calendar.persian.PeriodBetweenTwoTime
+import zohrevand.mahdi.calendar.persian.PersianCalendar
 import zohrevand.mahdi.calendar.persian.PersianDateHelper
 
 
@@ -22,6 +24,9 @@ class MyTaskRecyclerViewAdapter(
     private val tasks: List<Task>
     //  private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
+
+    val period = PeriodBetweenTwoTime()
+
 
     val persianDateHelper = PersianDateHelper()
 
@@ -41,8 +46,19 @@ class MyTaskRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      //  tasks[1].title = positionManager(position).toString()
-        tasks[1].title = persianDateHelper.getPersianDate(positionManager(position))
+
+
+        tasks[1].apply {
+
+            period.getDateAndAge(positionManager(position)
+                , {
+                    title = it
+                }, { year, month, day ->
+                    description = "$day $month $year"
+                })
+
+
+        }
 
 
         holder.bind(tasks[1])
@@ -67,12 +83,10 @@ class MyTaskRecyclerViewAdapter(
     }
 
 
- 
-
     /**
      * @return
      */
-    fun positionManager(position: Int): Int {
+    private fun positionManager(position: Int): Int {
         var realPosition = 0
         Log.i("date position", "$position")
         when (position) {
@@ -81,14 +95,18 @@ class MyTaskRecyclerViewAdapter(
                 Log.i("date", "$realPosition")
             }
             in 0..Int.MAX_VALUE / 2 -> {
-                realPosition =  (Int.MAX_VALUE / 2) - position
+                realPosition = (Int.MAX_VALUE / 2) - position
                 Log.i("date after", "$realPosition")
             }
             in (Int.MAX_VALUE / 2)..Int.MAX_VALUE -> {
-                realPosition =  Int.MAX_VALUE / 2 - position
+                realPosition = Int.MAX_VALUE / 2 - position
                 Log.i("date before", "$realPosition")
             }
         }
         return realPosition
     }
+
+
 }
+
+
