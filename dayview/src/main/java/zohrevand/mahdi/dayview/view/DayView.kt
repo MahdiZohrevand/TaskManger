@@ -9,11 +9,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.graphics.Paint.Align
-import android.graphics.RectF
 import android.text.Layout
 import android.text.TextPaint
 import android.text.TextUtils
@@ -26,6 +23,7 @@ import com.facebook.fbui.textlayoutbuilder.TextLayoutBuilder
 import zohrevand.mahdi.customviewtest.model.CalendarTask
 import zohrevand.mahdi.dayview.R
 import java.util.*
+import kotlin.math.max
 import kotlin.math.min
 
 
@@ -34,7 +32,7 @@ import kotlin.math.min
  */
 
 
-const val SPACE_BETWEEN_LINES = 60F
+const val SPACE_BETWEEN_LINES = 78F
 const val DEFAULT_TEXT_SIZE = 12
 const val DEFAULT_RECT_COLOR = Color.GRAY
 const val DEFAULT_TEXT_COLOR = Color.WHITE
@@ -42,7 +40,10 @@ const val DEFAULT_LINE_COLOR = Color.GRAY
 const val DEFAULT_HOUR_BAR_COLOR = Color.BLACK
 const val DEFAULT_RECT_PADDING = 4f
 const val DEFAULT_ALPHA = 15
-const val HOUR_WIDTH = 0.15f //15 percent of view width
+/**
+ * hour bar x position in container
+ */
+const val HOUR_BAR_X_POSITION = 0.15f //15 percent of view width
 const val RIPPLE_ANIMATION_DURATION = 200L
 const val AM_PM_TEXT_SIZE = 12
 
@@ -81,9 +82,9 @@ class DayView : View {
 
     private val calendarItem = mutableListOf<CalendarItem>()
 
-    private var hoursViewWidth: Float = 0f
+    private var verticalHourBarXPosition: Float = 0f
     private var horizontalLinesSeparator: FloatArray? = null
-    private var amOrPmTexts: TextLayoutWithPosition? = null
+    private var amOrPmTexts: TimesOfDay? = null
 
     //the vertical line that separate hours segment from other part
     private var verticalLineSeparator = object {
@@ -95,7 +96,7 @@ class DayView : View {
 
 
     //the line with circle that demonstrate current time
-    private var hourBarLine = object {
+    private var horizontalHourBarLine = object {
         var startX: Float = 0f
         var endX: Float = 0f
         var startY: Float = 0f
@@ -119,10 +120,6 @@ class DayView : View {
             return true
         }
 
-        override fun onSingleTapUp(e: MotionEvent?): Boolean {
-            //Log.i("action", "actionUp")
-            return super.onSingleTapUp(e)
-        }
     }
 
     private val detector: GestureDetector = GestureDetector(context, myListener)
@@ -388,7 +385,7 @@ class DayView : View {
             it.draw(canvas)
         }
 
-        hourBarLine.apply {
+        horizontalHourBarLine.apply {
             canvas.drawLine(startX, startY, endX, endY, paint.apply {
                 color = _hourBarColor
                 strokeWidth = convertToDp(1f)
@@ -423,41 +420,99 @@ class DayView : View {
 
     }
 
+    /**
+     * create basic view with given padding and width & height
+     * basic view contain vertical line (hour bar) and horizontal lines (hour separator)
+     * and their padding
+     */
     private fun createViews(
         paddingLeft: Int,
         paddingRight: Int,
         paddingBottom: Int,
         paddingTop: Int,
         w: Int,
-        h: Int
+        h: Int,
+        isRtl: Boolean = true
     ) {
+
 
         _paddingLeft = paddingLeft
         _paddingRight = paddingRight
         _paddingBottom = paddingBottom
         _paddingTop = paddingTop
 
-
-        hoursViewWidth = w * HOUR_WIDTH
-        hoursViewWidth += paddingLeft
-        horizontalLinesSeparator = createLines(hoursViewWidth, (w - paddingRight).toFloat(), 23)
-        amOrPmTexts = TextLayoutWithPosition()
-        calendarItem.forEach {
-            it.width = w - paddingRight
+        //create vertical hour bar
+        //==================================
+        verticalHourBarXPosition = if (isRtl) {
+            w * (1 - HOUR_BAR_X_POSITION)
+        } else {
+            w * HOUR_BAR_X_POSITION
+        }
+        verticalHourBarXPosition += if (isRtl) {
+            paddingRight
+        } else {
+            paddingLeft
         }
 
+
+
+        //create horizontal lines separator
+        //=================================
+        horizontalLinesSeparator = if (isRtl) {
+            createLines(verticalHourBarXPosition, 0f + paddingLeft, 23)
+        } else {
+            createLines(verticalHourBarXPosition, (w - paddingRight).toFloat(), 23)
+        }
+
+
+        //=================================
+        amOrPmTexts = TimesOfDay()
+
+        //change calendar item padding
+        //=================================
+        calendarItem.forEach {
+            it.width = if (isRtl) {
+                w - paddingRight
+            } else {
+                w - paddingRight
+            }
+        }
+
+        //=================================
         verticalLineSeparator.apply {
             startY = 0f
-            startX = hoursViewWidth
-            endX = hoursViewWidth
+            startX = verticalHourBarXPosition
+            endX = verticalHourBarXPosition
             endY = h.toFloat()
         }
 
-        hourBarLine.apply {
-            startY = calculateHourBarVerticalPosition()
-            startX = hoursViewWidth
-            endX = w.toFloat()
-            endY = calculateHourBarVerticalPosition()
+        //=================================
+        createHorizontalHourBar(w, isRtl)
+
+        /* horizontalHourBarLine.apply {
+             startY = calculateHourBarVerticalPosition()
+             startX = verticalHourBarXPosition
+             endX = if (isRtl) {
+                 0f + paddingLeft
+             } else {
+                 w.toFloat()
+             }
+             endY = calculateHourBarVerticalPosition()
+         }*/
+    }
+
+
+    private fun createHorizontalHourBar(width: Int, isRtl: Boolean) {
+        val yPosition = calculateHourBarVerticalPosition()
+        horizontalHourBarLine.apply {
+            startY = yPosition
+            startX = verticalHourBarXPosition
+            endX = if (isRtl) {
+                0f + paddingLeft
+            } else {
+                width.toFloat()
+            }
+            this.endY = yPosition
         }
     }
 
@@ -484,7 +539,7 @@ class DayView : View {
         } else {
             result = calculateHeight()
             if (specMode == MeasureSpec.AT_MOST) {
-                result = min(result, specSize)
+                result = max(result, specSize)
             }
         }
         if (result < desiredSize) {
@@ -527,7 +582,7 @@ class DayView : View {
     }
 
 
-    public fun addCalendarTask(item: CalendarTask) {
+    fun addCalendarTask(item: CalendarTask) {
         calendarItem.add(
             CalendarItem(
                 item,
@@ -539,7 +594,7 @@ class DayView : View {
 
     }
 
-    public fun addCalendarTask(items: List<CalendarTask>) {
+    fun addCalendarTask(items: List<CalendarTask>) {
         items.forEach {
             calendarItem.add(
                 CalendarItem(
@@ -555,12 +610,12 @@ class DayView : View {
     /**
      * this must be called after the added item(s) is changed
      */
-    public fun updateView() {
+    fun updateView() {
         invalidate()
     }
 
 
-    public fun setOnItemClickListener(callBack: (item: CalendarTask) -> Unit) {
+    fun setOnItemClickListener(callBack: (item: CalendarTask) -> Unit) {
         this.callBack = callBack
     }
 
@@ -579,13 +634,7 @@ class DayView : View {
 
 
     private fun changeHourBarPosition() {
-        val yPosition = calculateHourBarVerticalPosition()
-        hourBarLine.apply {
-            startX = hoursViewWidth
-            startY = yPosition
-            endX = width.toFloat()
-            endY = yPosition
-        }
+        createHorizontalHourBar(width, true)
         invalidate()
     }
 
@@ -735,7 +784,7 @@ class DayView : View {
 
         private fun createTaskRec(item: CalendarTask): RectF {
             return RectF(
-                hoursViewWidth + rectMarginLeft,
+                verticalHourBarXPosition + rectMarginLeft,
                 ((item.getStartTimeHour() + (item.getStartTimeMinute() / 60)) * SPACE_BETWEEN_LINES * density) + convertToDp(
                     1
                 ),
@@ -867,7 +916,7 @@ class DayView : View {
     }
 
 
-    private inner class TextLayoutWithPosition {
+    private inner class TimesOfDay(val isRtl: Boolean = true) {
 
 
         private val list = mutableListOf<AMOrPMItem>()
@@ -892,21 +941,30 @@ class DayView : View {
             val layoutBuilder = TextLayoutBuilder()
             for (i in 1 until 24) {
                 space += spaceBetweenLine
-                val amOrPmText = if (i > 11) "${if (i > 12) i - 12 else i} PM" else "$i AM"
+               // val amOrPmText = if (i > 11) "${if (i > 12) i - 12 else i} PM" else "$i AM"
+                val amOrPmText = "$i:00"
+
 
                 val layout = layoutBuilder.setText(amOrPmText)
                     .setWidth(
-                        textPaint
-                            .measureText(amOrPmText).toInt()
+                        (width - verticalHourBarXPosition).toInt()
                     )
+                    .setTypeface(Typeface.createFromAsset(context.assets, "shabnamfd.ttf"))
                     .setSingleLine(true)
                     .setAlignment(Layout.Alignment.ALIGN_CENTER)
                     .setIncludeFontPadding(false)
                     .setLineHeight(20f)
-                    .setTextSize(convertToDp(12).toInt()).setTextColor(Color.GRAY).build()
+                    .setTextSize(convertToDp(12).toInt()).setTextColor(Color.BLACK).build()
 
-                val textXPosition = hoursViewWidth -
-                        textPaint.measureText(amOrPmText) - amOrPmTextPadding
+
+                val textXPosition = if (isRtl) {
+                    verticalHourBarXPosition
+                } else {
+                    verticalHourBarXPosition -
+                            textPaint.measureText(amOrPmText) - amOrPmTextPadding
+                }
+
+
                 val textYPosition = space - layout!!.height / 2 /*- convertToDp(1)*/
                 list.add(
                     AMOrPMItem(
