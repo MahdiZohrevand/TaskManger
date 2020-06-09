@@ -10,6 +10,9 @@
 # Java class files
 *.class
 
+#dayView module
+dayview
+
 # Generated files
 bin/
 gen/
