@@ -54,7 +54,7 @@ class MyTaskRecyclerViewAdapter(
                 , {
                     title = it
                 }, { year, month, day ->
-                    description = "$day $month $year"
+                    description = "$year/$month/$day"
                 })
 
 

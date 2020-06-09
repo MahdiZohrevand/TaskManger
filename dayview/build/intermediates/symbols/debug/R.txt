@@ -635,6 +635,7 @@ int drawable notification_tile_bg 0x7f080069
 int drawable notify_panel_notification_icon_bg 0x7f08006a
 int drawable tooltip_frame_dark 0x7f08006b
 int drawable tooltip_frame_light 0x7f08006c
+int font shabnamfd 0x7f090001
 int id accessibility_action_clickable_span 0x7f0b0001
 int id accessibility_custom_action_0 0x7f0b0002
 int id accessibility_custom_action_1 0x7f0b0003

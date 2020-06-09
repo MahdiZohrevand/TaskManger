@@ -23,6 +23,7 @@ attr? rectPaddingRight
 attr? rectPaddingTop
 attr? rectTextColor
 attr? textSize
+font shabnamfd
 string app_name
 styleable DayView textSize rectColor rectTextColor hourBarColor lineColor rectMarginLeft rectMarginRight rectPaddingRight rectPaddingLeft rectPaddingTop rectPaddingBottom
 styleable MaterialRippleLayout mrl_rippleColor mrl_rippleDimension mrl_rippleOverlay mrl_rippleAlpha mrl_rippleDuration mrl_rippleFadeDuration mrl_rippleHover mrl_rippleBackground mrl_rippleDelayClick mrl_ripplePersistent mrl_rippleInAdapter mrl_rippleRoundedCorners
