@@ -30,10 +30,8 @@ class NewTaskFragment : Fragment() {
 
         binding.viewModel = newTaskViewModel
 
-        binding.startNewTaskSpinnerMinute.setNumberAdapter(0,59,false)
         binding.startNewTaskSpinnerHour.setNumberAdapter(0,23,false)
-
-
+        binding.startNewTaskSpinnerMinute.setNumberAdapter(0,59,false)
         binding.endNewTaskSpinnerHour.setNumberAdapter(0,23,false)
         binding.endNewTaskSpinnerMinute.setNumberAdapter(0,59,false)
 
