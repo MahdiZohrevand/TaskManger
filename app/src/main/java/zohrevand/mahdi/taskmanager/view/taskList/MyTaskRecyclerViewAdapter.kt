@@ -1,5 +1,6 @@
 package zohrevand.mahdi.taskmanager.view.taskList
 
+import android.graphics.Color
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -47,29 +48,54 @@ class MyTaskRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
-        tasks[1].apply {
-
-            period.getDateAndAge(positionManager(position)
-                , {
-                    title = it
-                }, { year, month, day ->
-                    description = "$year/$month/$day"
-                })
+        var title = ""
+        var description = ""
 
 
-        }
+        period.getDateAndAge(positionManager(position)
+            , {
+                title = it
+            }, { year, month, day ->
+                description = "$year/$month/$day"
+            })
 
 
-        holder.bind(tasks[1])
+
+
+
+        holder.bind(tasks[1], title, description, getTasksForPosition(position))
+
+
     }
+
+    fun getTasksForPosition(position: Int): List<zohrevand.mahdi.customviewtest.model.Task> =
+        //we return dumy data
+        listOf<zohrevand.mahdi.customviewtest.model.Task>(
+            zohrevand.mahdi.customviewtest.model.Task(
+                _tittle = "test",
+                _startTimeHour = 10f,
+                _startTimeMinute = 25f,
+                _endTimeHour = 11f,
+                _endTimeMinute = 20f,
+                _rectColor = Color.parseColor("#e44285F4")
+            )
+        )
+
 
     override fun getItemCount(): Int = Int.MAX_VALUE
 
     class ViewHolder(val binding: RowDayViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Task) {
+        fun bind(
+            item: Task,
+            date: String,
+            age: String,
+            tasks: List<zohrevand.mahdi.customviewtest.model.Task>
+        ) {
             binding.task = item
+            binding.age = age
+            binding.date = date
+            binding.tasks = tasks
             binding.executePendingBindings()
         }
 
