@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import org.koin.android.viewmodel.ext.android.viewModel
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.databinding.FragmentNewTaskBinding
+import zohrevand.mahdi.taskmanager.utils.setNumberAdapter
 
 class NewTaskFragment : Fragment() {
 
@@ -29,6 +30,14 @@ class NewTaskFragment : Fragment() {
 
         binding.viewModel = newTaskViewModel
 
+        binding.startNewTaskSpinnerMinute.setNumberAdapter(0,59,false)
+        binding.startNewTaskSpinnerHour.setNumberAdapter(0,23,false)
+
+
+        binding.endNewTaskSpinnerHour.setNumberAdapter(0,23,false)
+        binding.endNewTaskSpinnerMinute.setNumberAdapter(0,59,false)
+
         return binding.root
+
     }
 }
