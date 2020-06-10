@@ -12,6 +12,7 @@
 
 #dayView module
 dayview/
+/dayview/
 
 # Generated files
 bin/
