@@ -69,33 +69,33 @@
 
             <!--start time card-->
             <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/new_task_start_card"
                     android:layout_width="0dp"
+                    app:layout_constraintWidth_percent="0.4"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:padding="4dp"
                     android:orientation="horizontal"
+                    android:padding="4dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/new_task_description_lot"
-                    app:layout_constraintWidth_percent="0.4"
                     app:strokeColor="@android:color/black"
                     app:strokeWidth="1dp">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
+
                     <Spinner
                             android:id="@+id/start_new_task_spinner_minute"
                             style="@android:style/Widget.Holo.Light.Spinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                             />
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                             android:layout_width="wrap_content"
@@ -106,11 +106,10 @@
                             android:text=":"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     <Spinner
                             android:id="@+id/start_new_task_spinner_hour"
@@ -120,24 +119,35 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
             <!--================================================-->
 
+
             <!--start time card-->
+           <!-- <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="شروع"
+                    android:paddingTop="16dp"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toTopOf="@id/new_task_start_card"
+                    app:layout_constraintRight_toRightOf="@id/new_task_start_card"
+                    app:layout_constraintLeft_toLeftOf="@id/new_task_start_card"
+                    />-->
+
             <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
                     android:orientation="horizontal"
+                    android:padding="4dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/new_task_description_lot"
                     app:layout_constraintWidth_percent="0.4"
@@ -147,18 +157,17 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
+
                     <Spinner
                             android:id="@+id/end_new_task_spinner_minute"
                             style="@android:style/Widget.Holo.Light.Spinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                             android:layout_width="wrap_content"
@@ -169,11 +178,10 @@
                             android:text=":"
                             android:textColor="@android:color/black"
                             android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     <Spinner
                             android:id="@+id/end_new_task_spinner_hour"
@@ -183,10 +191,9 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            />
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
