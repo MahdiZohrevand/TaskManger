@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import timber.log.Timber
 import zohrevand.mahdi.calendar.persian.PeriodBetweenTwoTime
-import zohrevand.mahdi.calendar.persian.PersianCalendar
 import zohrevand.mahdi.calendar.persian.PersianDateHelper
 
 
 //import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
 
 import zohrevand.mahdi.taskmanager.business.Task
+import zohrevand.mahdi.taskmanager.dataAccess.TasksDao
 import zohrevand.mahdi.taskmanager.databinding.RowDayViewBinding
 
 /**
@@ -21,10 +22,11 @@ import zohrevand.mahdi.taskmanager.databinding.RowDayViewBinding
  * specified [OnListFragmentInteractionListener].
  *
  */
-class MyTaskRecyclerViewAdapter(
-    private val tasks: List<Task>
+class TaskRecyclerViewAdapter(
+    private val tasks: List<Task>,
+    private val tasksDao: TasksDao
     //  private val mListener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder>() {
 
     val period = PeriodBetweenTwoTime()
 
@@ -36,9 +38,6 @@ class MyTaskRecyclerViewAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as Task
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            //  mListener?.onListFragmentInteraction(item)
         }
     }
 
@@ -68,11 +67,21 @@ class MyTaskRecyclerViewAdapter(
 
     }
 
-    fun getTasksForPosition(position: Int): List<zohrevand.mahdi.customviewtest.model.Task> =
+    fun getTasksForPosition(position: Int): List<zohrevand.mahdi.customviewtest.model.Task> {
+
+          //====
+          val realPosition  = positionManager(position)
+          val date = period.convertDayPositionToMilliSecondDate(realPosition)
+          tasksDao.getTaskForDay(date[0],date[1]).observeForever {
+              val s =it
+              Timber.i("${it.size}")
+          }
+
+
         //we return dumy data
-        listOf<zohrevand.mahdi.customviewtest.model.Task>(
+        return listOf(
             zohrevand.mahdi.customviewtest.model.Task(
-                _tittle = "test",
+                _tittle = "mahdi",
                 _startTimeHour = 10f,
                 _startTimeMinute = 25f,
                 _endTimeHour = 11f,
@@ -81,6 +90,8 @@ class MyTaskRecyclerViewAdapter(
             )
         )
 
+
+    }
 
     override fun getItemCount(): Int = Int.MAX_VALUE
 
@@ -114,19 +125,19 @@ class MyTaskRecyclerViewAdapter(
      */
     private fun positionManager(position: Int): Int {
         var realPosition = 0
-        Log.i("date position", "$position")
+        Timber.i("date position : $position")
         when (position) {
             Int.MAX_VALUE / 2 -> {
                 realPosition = 0
-                Log.i("date", "$realPosition")
+                Timber.i("date : $realPosition")
             }
-            in 0..Int.MAX_VALUE / 2 -> {
+            in 0..(Int.MAX_VALUE / 2) -> {
                 realPosition = (Int.MAX_VALUE / 2) - position
-                Log.i("date after", "$realPosition")
+                Timber.i("date after : $realPosition")
             }
             in (Int.MAX_VALUE / 2)..Int.MAX_VALUE -> {
                 realPosition = Int.MAX_VALUE / 2 - position
-                Log.i("date before", "$realPosition")
+                Timber.i("date before : $realPosition")
             }
         }
         return realPosition

@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
-import zohrevand.mahdi.customviewtest.model.Task
-import zohrevand.mahdi.dayview.view.DayView
 import zohrevand.mahdi.taskmanager.R
+import zohrevand.mahdi.taskmanager.dataAccess.TaskManagerDatabase
 
 import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
 
@@ -25,6 +25,8 @@ import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
  */
 class TaskListFragment : Fragment() {
 
+
+    val db: TaskManagerDatabase by inject()
 
     // private var listener: OnListFragmentInteractionListener? = null
 
@@ -57,8 +59,9 @@ class TaskListFragment : Fragment() {
         if (recyclerView != null) {
             with(recyclerView) {
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                adapter = MyTaskRecyclerViewAdapter(
-                    DummyContent.ITEMS
+                adapter = TaskRecyclerViewAdapter(
+                    DummyContent.ITEMS,
+                    db.tasksDao
                 )
                 (layoutManager as LinearLayoutManager).scrollToPosition(Int.MAX_VALUE / 2)
                 PagerSnapHelper().attachToRecyclerView(this)

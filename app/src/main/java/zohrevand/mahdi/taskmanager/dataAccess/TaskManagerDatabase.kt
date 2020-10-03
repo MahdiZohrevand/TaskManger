@@ -22,7 +22,7 @@ abstract class TaskManagerDatabase : RoomDatabase() {
                         context.applicationContext,
                         TaskManagerDatabase::class.java,
                         "task_manager_database"
-                    ).fallbackToDestructiveMigration().build()
+                    ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
                     INSTANCE = instance
                 }
                 return instance

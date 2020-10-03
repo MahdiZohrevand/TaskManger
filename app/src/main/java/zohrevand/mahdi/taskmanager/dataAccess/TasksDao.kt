@@ -19,6 +19,9 @@ interface TasksDao {
     @Query("SELECT * from task_table WHERE taskId = :key")
     fun get(key: Long): TaskModel?
 
+    @Query("SELECT * from task_table WHERE create_date_milli BETWEEN :start AND :end")
+    fun getTaskForDay(start: Long, end: Long): LiveData<List<TaskModel>>
+
     @Query("SELECT * from task_table ORDER BY create_date_milli DESC")
     fun getAllTask(): LiveData<List<TaskModel>>
 

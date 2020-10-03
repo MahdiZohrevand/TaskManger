@@ -35,4 +35,10 @@ class PeriodBetweenTwoTimeTest {
         println(formatter.format(period.getPersianDate(21)))
         println(formatter.format(period.getPersianDate(-20)))
     }
+
+    @Test
+    fun dateInMillisecondRang(){
+       val result  = period.convertDayPositionToMilliSecondDate(0)
+        print("${result.first()} , ${result.last()}")
+    }
 }
