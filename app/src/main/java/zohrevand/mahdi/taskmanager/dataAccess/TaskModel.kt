@@ -3,6 +3,7 @@ package zohrevand.mahdi.taskmanager.dataAccess
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 
 @Entity(tableName = "task_table")
@@ -30,6 +31,12 @@ data class TaskModel(
     var spannedTimeMilli: Long = -1,
 
     @ColumnInfo(name = "is_done")
-    var isDone: Boolean = false
+    var isDone: Boolean = false,
+
+    @ColumnInfo(name = "start_date")
+    var startDate: Date = Date(),
+
+    @ColumnInfo(name = "finish_date")
+    var finishDate : Date? = null
 
 )
