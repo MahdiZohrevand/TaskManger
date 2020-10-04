@@ -1,12 +1,11 @@
 package zohrevand.mahdi.taskmanager.dataAccess
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 
 
 @Database(entities = [TaskModel::class], version = 1, exportSchema = false)
+@TypeConverters(Converter::class)
 abstract class TaskManagerDatabase : RoomDatabase() {
     abstract val tasksDao: TasksDao
 
