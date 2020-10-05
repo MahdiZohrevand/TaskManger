@@ -1,12 +1,11 @@
 package zohrevand.mahdi.taskmanager.view.taskList
 
-import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import timber.log.Timber
 import zohrevand.mahdi.calendar.persian.PeriodBetweenTwoTime
+import zohrevand.mahdi.customviewtest.model.CalendarTask
 
 
 //import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
@@ -22,22 +21,15 @@ import zohrevand.mahdi.taskmanager.databinding.RowDayViewBinding
  *
  */
 class TaskRecyclerViewAdapter(
-    private val tasks: List<Task>,
-    private val tasksDao: TasksDao
-    //  private val mListener: OnListFragmentInteractionListener?
+    private val tasksDao: TasksDao,
+    private val callBack: (item: CalendarTask) -> Unit
 ) : RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder>() {
 
-    val period = PeriodBetweenTwoTime()
-    private val mOnClickListener: View.OnClickListener
+    private val period = PeriodBetweenTwoTime()
 
-    init {
-        mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as Task
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(parent, callBack)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -50,11 +42,7 @@ class TaskRecyclerViewAdapter(
             }, { year, month, day ->
                 age = "$year/$month/$day"
             })
-
-
-        holder.bind(tasks[1], date, age, getTasksForPosition(position, holder.binding))
-
-
+        holder.bind(date, age, getTasksForPosition(position, holder.binding))
     }
 
     fun getTasksForPosition(
@@ -75,15 +63,26 @@ class TaskRecyclerViewAdapter(
 
     override fun getItemCount(): Int = Int.MAX_VALUE
 
-    class ViewHolder(val binding: RowDayViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        val binding: RowDayViewBinding,
+        callBack: (item: CalendarTask) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+
+            binding.dayView.setOnItemClickListener {
+                callBack(it)
+            }
+        }
+
 
         fun bind(
-            item: Task,
+
             date: String,
             age: String,
             tasks: List<zohrevand.mahdi.customviewtest.model.Task>
         ) {
-            binding.task = item
+
             binding.age = age
             binding.date = date
             binding.tasks = tasks
@@ -91,10 +90,10 @@ class TaskRecyclerViewAdapter(
         }
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder {
+            fun from(parent: ViewGroup, callBack: (item: CalendarTask) -> Unit): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = RowDayViewBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ViewHolder(binding, callBack)
             }
         }
     }
