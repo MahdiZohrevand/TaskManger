@@ -1,7 +1,11 @@
 package zohrevand.mahdi.customviewtest.model
 
+import android.os.Parcelable
 import androidx.annotation.ColorInt
+import kotlinx.android.parcel.Parcelize
 
+
+@Parcelize
 //because of conflict with getter method and the interface method's name add "_" to each property name
 class Task(
     val _id: Long = -1,
@@ -13,7 +17,7 @@ class Task(
     val _endTimeMinute: Float,
     @ColorInt var _rectColor: Int? = null,
     @ColorInt var _textColor: Int? = null
-) : CalendarTask {
+) : CalendarTask, Parcelable {
 
 
     override fun getID(): Long {
