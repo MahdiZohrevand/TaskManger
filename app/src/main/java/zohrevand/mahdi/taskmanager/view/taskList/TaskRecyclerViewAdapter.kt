@@ -1,20 +1,19 @@
 package zohrevand.mahdi.taskmanager.view.taskList
 
 import android.graphics.Color
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import timber.log.Timber
 import zohrevand.mahdi.calendar.persian.PeriodBetweenTwoTime
-import zohrevand.mahdi.calendar.persian.PersianDateHelper
 
 
 //import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
 
 import zohrevand.mahdi.taskmanager.business.Task
 import zohrevand.mahdi.taskmanager.dataAccess.TasksDao
+import zohrevand.mahdi.taskmanager.dataAccess.convertDbTaskListToDayViewTaskList
 import zohrevand.mahdi.taskmanager.databinding.RowDayViewBinding
 
 /**
@@ -29,10 +28,6 @@ class TaskRecyclerViewAdapter(
 ) : RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder>() {
 
     val period = PeriodBetweenTwoTime()
-
-
-    val persianDateHelper = PersianDateHelper()
-
     private val mOnClickListener: View.OnClickListener
 
     init {
@@ -47,50 +42,35 @@ class TaskRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        var title = ""
-        var description = ""
-
-
+        var date = ""
+        var age = ""
         period.getDateAndAge(positionManager(position)
             , {
-                title = it
+                date = it
             }, { year, month, day ->
-                description = "$year/$month/$day"
+                age = "$year/$month/$day"
             })
 
 
-
-
-
-        holder.bind(tasks[1], title, description, getTasksForPosition(position))
+        holder.bind(tasks[1], date, age, getTasksForPosition(position, holder.binding))
 
 
     }
 
-    fun getTasksForPosition(position: Int): List<zohrevand.mahdi.customviewtest.model.Task> {
+    fun getTasksForPosition(
+        position: Int,
+        binding: RowDayViewBinding
+    ): List<zohrevand.mahdi.customviewtest.model.Task> {
 
-          //====
-          val realPosition  = positionManager(position)
-          val date = period.convertDayPositionToMilliSecondDate(realPosition)
-          tasksDao.getTaskForDay(date[0],date[1]).observeForever {
-              val s =it
-              Timber.i("${it.size}")
-          }
-
-
-        //we return dumy data
-        return listOf(
-            zohrevand.mahdi.customviewtest.model.Task(
-                _tittle = "mahdi",
-                _startTimeHour = 10f,
-                _startTimeMinute = 25f,
-                _endTimeHour = 11f,
-                _endTimeMinute = 20f,
-                _rectColor = Color.parseColor("#e44285F4")
-            )
-        )
-
-
+        var taskList: List<zohrevand.mahdi.customviewtest.model.Task> = listOf()
+        val realPosition = positionManager(position)
+        val date = period.convertDayPositionToDate(realPosition)
+        tasksDao.getTaskForDay(date[0], date[1]).observeForever {
+            Timber.i("${it.size}")
+            taskList = convertDbTaskListToDayViewTaskList(it)
+            binding.dayView.setCalendarTask(taskList)
+        }
+        return taskList
     }
 
     override fun getItemCount(): Int = Int.MAX_VALUE
