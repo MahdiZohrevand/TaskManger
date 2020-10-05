@@ -18,11 +18,11 @@ data class TaskModel(
     @ColumnInfo(name = "task_description")
     val description: String,
 
-    @ColumnInfo(name = "create_date_milli")
+   /* @ColumnInfo(name = "create_date_milli")
     val createTimeMilli: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name = "end_date_milli")
-    var endTimeMilli: Long = -1,
+    var endTimeMilli: Long = -1,*/
 
     @ColumnInfo(name = "deadline_date_milli")
     var deadLineTimeMilli: Long = -1,
