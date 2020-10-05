@@ -1,19 +1,19 @@
 package zohrevand.mahdi.taskmanager.view.taskList
 
 import android.graphics.Color
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import timber.log.Timber
 import zohrevand.mahdi.calendar.persian.PeriodBetweenTwoTime
-import zohrevand.mahdi.calendar.persian.PersianCalendar
-import zohrevand.mahdi.calendar.persian.PersianDateHelper
 
 
 //import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragment.OnListFragmentInteractionListener
 
 import zohrevand.mahdi.taskmanager.business.Task
+import zohrevand.mahdi.taskmanager.dataAccess.TasksDao
+import zohrevand.mahdi.taskmanager.dataAccess.convertDbTaskListToDayViewTaskList
 import zohrevand.mahdi.taskmanager.databinding.RowDayViewBinding
 
 /**
@@ -21,24 +21,18 @@ import zohrevand.mahdi.taskmanager.databinding.RowDayViewBinding
  * specified [OnListFragmentInteractionListener].
  *
  */
-class MyTaskRecyclerViewAdapter(
-    private val tasks: List<Task>
+class TaskRecyclerViewAdapter(
+    private val tasks: List<Task>,
+    private val tasksDao: TasksDao
     //  private val mListener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<MyTaskRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder>() {
 
     val period = PeriodBetweenTwoTime()
-
-
-    val persianDateHelper = PersianDateHelper()
-
     private val mOnClickListener: View.OnClickListener
 
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as Task
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            //  mListener?.onListFragmentInteraction(item)
         }
     }
 
@@ -48,39 +42,36 @@ class MyTaskRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        var title = ""
-        var description = ""
-
-
+        var date = ""
+        var age = ""
         period.getDateAndAge(positionManager(position)
             , {
-                title = it
+                date = it
             }, { year, month, day ->
-                description = "$year/$month/$day"
+                age = "$year/$month/$day"
             })
 
 
-
-
-
-        holder.bind(tasks[1], title, description, getTasksForPosition(position))
+        holder.bind(tasks[1], date, age, getTasksForPosition(position, holder.binding))
 
 
     }
 
-    fun getTasksForPosition(position: Int): List<zohrevand.mahdi.customviewtest.model.Task> =
-        //we return dumy data
-        listOf<zohrevand.mahdi.customviewtest.model.Task>(
-            zohrevand.mahdi.customviewtest.model.Task(
-                _tittle = "test",
-                _startTimeHour = 10f,
-                _startTimeMinute = 25f,
-                _endTimeHour = 11f,
-                _endTimeMinute = 20f,
-                _rectColor = Color.parseColor("#e44285F4")
-            )
-        )
+    fun getTasksForPosition(
+        position: Int,
+        binding: RowDayViewBinding
+    ): List<zohrevand.mahdi.customviewtest.model.Task> {
 
+        var taskList: List<zohrevand.mahdi.customviewtest.model.Task> = listOf()
+        val realPosition = positionManager(position)
+        val date = period.convertDayPositionToDate(realPosition)
+        tasksDao.getTaskForDay(date[0], date[1]).observeForever {
+            Timber.i("${it.size}")
+            taskList = convertDbTaskListToDayViewTaskList(it)
+            binding.dayView.setCalendarTask(taskList)
+        }
+        return taskList
+    }
 
     override fun getItemCount(): Int = Int.MAX_VALUE
 
@@ -114,19 +105,19 @@ class MyTaskRecyclerViewAdapter(
      */
     private fun positionManager(position: Int): Int {
         var realPosition = 0
-        Log.i("date position", "$position")
+        Timber.i("date position : $position")
         when (position) {
             Int.MAX_VALUE / 2 -> {
                 realPosition = 0
-                Log.i("date", "$realPosition")
+                Timber.i("date : $realPosition")
             }
-            in 0..Int.MAX_VALUE / 2 -> {
+            in 0..(Int.MAX_VALUE / 2) -> {
                 realPosition = (Int.MAX_VALUE / 2) - position
-                Log.i("date after", "$realPosition")
+                Timber.i("date after : $realPosition")
             }
             in (Int.MAX_VALUE / 2)..Int.MAX_VALUE -> {
                 realPosition = Int.MAX_VALUE / 2 - position
-                Log.i("date before", "$realPosition")
+                Timber.i("date before : $realPosition")
             }
         }
         return realPosition

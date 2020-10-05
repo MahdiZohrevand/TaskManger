@@ -2,6 +2,7 @@ package zohrevand.mahdi.calendar.persian
 
 import saman.zamani.persiandate.PersianDate
 import saman.zamani.persiandate.PersianDateFormat
+import java.util.*
 import kotlin.math.abs
 
 class PeriodBetweenTwoTime {
@@ -116,5 +117,17 @@ class PeriodBetweenTwoTime {
             ageCallBack(year, month, _day)
             dateCallBack(date)
         }
+    }
+
+    public fun convertDayPositionToMilliSecondDate(day: Int): List<Long> {
+        val start = getPersianDate(day)?.setHour(0)?.setMinute(0)?.setSecond(0)?.time
+        val end = getPersianDate(day)?.setHour(23)?.setMinute(59)?.setSecond(59)?.toDate()?.time
+        return listOf<Long>(start ?: -1, end ?: -1)
+    }
+
+    public fun convertDayPositionToDate(day: Int): List<Date> {
+        val start = getPersianDate(day)?.setHour(0)?.setMinute(0)?.setSecond(0)?.toDate()
+        val end = getPersianDate(day)?.setHour(23)?.setMinute(59)?.setSecond(59)?.toDate()
+        return listOf<Date>(start!!, end!!)
     }
 }

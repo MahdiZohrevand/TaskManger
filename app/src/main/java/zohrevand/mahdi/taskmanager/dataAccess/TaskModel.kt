@@ -3,6 +3,7 @@ package zohrevand.mahdi.taskmanager.dataAccess
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 
 @Entity(tableName = "task_table")
@@ -17,11 +18,11 @@ data class TaskModel(
     @ColumnInfo(name = "task_description")
     val description: String,
 
-    @ColumnInfo(name = "create_date_milli")
+   /* @ColumnInfo(name = "create_date_milli")
     val createTimeMilli: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name = "end_date_milli")
-    var endTimeMilli: Long = -1,
+    var endTimeMilli: Long = -1,*/
 
     @ColumnInfo(name = "deadline_date_milli")
     var deadLineTimeMilli: Long = -1,
@@ -30,6 +31,12 @@ data class TaskModel(
     var spannedTimeMilli: Long = -1,
 
     @ColumnInfo(name = "is_done")
-    var isDone: Boolean = false
+    var isDone: Boolean = false,
+
+    @ColumnInfo(name = "start_date")
+    var startDate: Date = Date(),
+
+    @ColumnInfo(name = "finish_date")
+    var finishDate : Date? = null
 
 )

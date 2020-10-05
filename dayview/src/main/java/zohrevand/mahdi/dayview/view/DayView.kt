@@ -607,6 +607,19 @@ class DayView : View {
         invalidate()
     }
 
+    fun setCalendarTask(items: List<CalendarTask>) {
+        calendarItem.clear()
+        items.forEach {
+            calendarItem.add(
+                CalendarItem(
+                    it,
+                    rectTextSize.toInt(),
+                    getDensity()
+                )
+            )
+        }
+        invalidate()
+    }
     /**
      * this must be called after the added item(s) is changed
      */

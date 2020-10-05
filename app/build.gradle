@@ -52,8 +52,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project (":dayview")
-    implementation project (":persianCalendar")
+    implementation project(":dayview")
+    implementation project(":persianCalendar")
     //Kotlin
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -101,6 +101,10 @@ dependencies {
     implementation "org.koin:koin-android-ext:2.0.1"
 
     testImplementation "org.koin:koin-test:2.0.1"
+
+    //stetho for debugging
+    implementation "com.facebook.stetho:stetho:1.5.1"
+
 
     // Architecture Components
     implementation "androidx.room:room-runtime:$roomVersion"
