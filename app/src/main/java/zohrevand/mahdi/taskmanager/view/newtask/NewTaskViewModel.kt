@@ -7,9 +7,14 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.Navigation
 import kotlinx.coroutines.*
+import zohrevand.mahdi.customviewtest.model.Task
+import zohrevand.mahdi.taskmanager.NavigationCommand
 import zohrevand.mahdi.taskmanager.dataAccess.TaskManagerDatabase
 import zohrevand.mahdi.taskmanager.dataAccess.TaskModel
+import zohrevand.mahdi.taskmanager.utils.SingleLiveEvent
+import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragmentDirections
 import java.util.*
 
 class NewTaskViewModel(
@@ -17,10 +22,12 @@ class NewTaskViewModel(
     val androidContext: Context
 ) : ViewModel() {
 
+    val navigation = SingleLiveEvent<NavigationCommand>()
+
     val title = MutableLiveData<String>()
     val description = MutableLiveData<String>()
-
-    val taskMutableLiveData = db.tasksDao.getAllTask()
+    private var isEditMode = false
+    private lateinit var task: Task
 
     //===================================time
     private val calendar = Calendar.getInstance()
@@ -36,44 +43,49 @@ class NewTaskViewModel(
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    /*init {
-        title.value = "test"
-        taskMutableLiveData.observeForever {
-            val s = it
-        }
-
-        uiScope.launch {
-
-        }
-        Log.d("endHour","$endHourPosition")
-    }*/
 
     fun onSubmitClick() {
         uiScope.launch {
             insertNewTaskDb()
+            navigation.postValue(NavigationCommand.Back)
         }
+
     }
 
 
     private suspend fun insertNewTaskDb() {
         withContext(Dispatchers.IO) {
             val taskDao = db.tasksDao
-           // val start = getStartMillisecond()
-          //  val end = getEndMillisecond()
             val startDate = getStartDate()
             val finishDate = getFinishDate()
             if (startDate < finishDate) {
                 val title = title.value
                 val description = description.value ?: ""
                 if (title != null && title.isNotEmpty()) {
-                    taskDao.insert(
-                        TaskModel(
-                            title = title,
-                            description = description,
-                            startDate = startDate,
-                            finishDate = finishDate
+
+                    if (isEditMode) {
+                        taskDao.update(
+                            TaskModel(
+                                TaskId = task._id,
+                                title = title,
+                                description = description,
+                                startDate = startDate,
+                                finishDate = finishDate
+                            )
                         )
-                    )
+                    } else {
+                        taskDao.insert(
+                            TaskModel(
+                                title = title,
+                                description = description,
+                                startDate = startDate,
+                                finishDate = finishDate
+                            )
+                        )
+
+                    }
+
+
                 } else {
                     showError()
                 }
@@ -98,13 +110,13 @@ class NewTaskViewModel(
 
     }
 
-    private fun getEndMillisecond(): Long {
-        calendar.set(Calendar.HOUR_OF_DAY, endHourPosition)
-        calendar.set(Calendar.MINUTE, endMinutePosition)
-        //  Log.d("endHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
-        return calendar.timeInMillis
+    /*  private fun getEndMillisecond(): Long {
+          calendar.set(Calendar.HOUR_OF_DAY, endHourPosition)
+          calendar.set(Calendar.MINUTE, endMinutePosition)
+          //  Log.d("endHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
+          return calendar.timeInMillis
 
-    }
+      }*/
 
     private fun getFinishDate(): Date {
         calendar.set(Calendar.HOUR_OF_DAY, endHourPosition)
@@ -113,12 +125,12 @@ class NewTaskViewModel(
         return Date(calendar.timeInMillis)
     }
 
-    private fun getStartMillisecond(): Long {
-        calendar.set(Calendar.HOUR_OF_DAY, startHourPosition)
-        calendar.set(Calendar.MINUTE, startMinutePosition)
-        //  Log.d("startHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
-        return calendar.timeInMillis
-    }
+    /* private fun getStartMillisecond(): Long {
+         calendar.set(Calendar.HOUR_OF_DAY, startHourPosition)
+         calendar.set(Calendar.MINUTE, startMinutePosition)
+         //  Log.d("startHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
+         return calendar.timeInMillis
+     }*/
 
     private fun getStartDate(): Date {
         calendar.set(Calendar.HOUR_OF_DAY, startHourPosition)
@@ -128,16 +140,27 @@ class NewTaskViewModel(
     }
 
 
-    suspend fun getAllTask() {
-        withContext(Dispatchers.IO) {
-            val tasksDao = db.tasksDao
-            tasksDao.getAllTask().observeForever {
-                val x = it
-
-            }
-        }
-
+    fun setTask(task: Task) {
+        isEditMode = true
+        this.task = task
+        title.value = task._tittle
+        description.value = task._description
+        startHourPosition = task._startTimeHour.toInt()
+        startMinutePosition = task._startTimeMinute.toInt()
+        endHourPosition = task._endTimeHour.toInt()
+        endMinutePosition = task._endTimeMinute.toInt()
     }
+
+    /* suspend fun getAllTask() {
+         withContext(Dispatchers.IO) {
+             val tasksDao = db.tasksDao
+             tasksDao.getAllTask().observeForever {
+                 val x = it
+
+             }
+         }
+
+     }*/
 
     override fun onCleared() {
         super.onCleared()
