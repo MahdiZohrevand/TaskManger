@@ -3,18 +3,16 @@ package zohrevand.mahdi.taskmanager.view.newtask
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation
 import kotlinx.coroutines.*
 import zohrevand.mahdi.customviewtest.model.Task
 import zohrevand.mahdi.taskmanager.NavigationCommand
+import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.dataAccess.TaskManagerDatabase
 import zohrevand.mahdi.taskmanager.dataAccess.TaskModel
 import zohrevand.mahdi.taskmanager.utils.SingleLiveEvent
-import zohrevand.mahdi.taskmanager.view.taskList.TaskListFragmentDirections
 import java.util.*
 
 class NewTaskViewModel(
@@ -47,7 +45,6 @@ class NewTaskViewModel(
     fun onSubmitClick() {
         uiScope.launch {
             insertNewTaskDb()
-            navigation.postValue(NavigationCommand.Back)
         }
 
     }
@@ -59,50 +56,41 @@ class NewTaskViewModel(
             val startDate = getStartDate()
             val finishDate = getFinishDate()
             if (startDate < finishDate) {
-                val title = title.value
+                val title = title.value ?: ""
                 val description = description.value ?: ""
-                if (title != null && title.isNotEmpty()) {
-
-                    if (isEditMode) {
-                        taskDao.update(
-                            TaskModel(
-                                TaskId = task._id,
-                                title = title,
-                                description = description,
-                                startDate = startDate,
-                                finishDate = finishDate
-                            )
+                if (isEditMode) {
+                    taskDao.update(
+                        TaskModel(
+                            TaskId = task._id,
+                            title = title,
+                            description = description,
+                            startDate = startDate,
+                            finishDate = finishDate
                         )
-                    } else {
-                        taskDao.insert(
-                            TaskModel(
-                                title = title,
-                                description = description,
-                                startDate = startDate,
-                                finishDate = finishDate
-                            )
-                        )
-
-                    }
-
-
+                    )
                 } else {
-                    showError()
-                }
+                    taskDao.insert(
+                        TaskModel(
+                            title = title,
+                            description = description,
+                            startDate = startDate,
+                            finishDate = finishDate
+                        )
+                    )
 
-                Log.d("titleAndDescription", "${title} , ${description}")
-                // Log.d("start and end","$end , $start")
+                }
+                navigation.postValue(NavigationCommand.Back)
             } else {
-                showError()
+                showError(androidContext.getString(R.string.start_bigger_than_finish))
             }
         }
     }
 
-    private fun showError() {
+    private fun showError(message: String) {
         Handler(Looper.getMainLooper()).post {
             Toast.makeText(
                 androidContext,
-                "end time must be bigger than start time",
+                message,
                 Toast.LENGTH_SHORT
             ).show()
         }
