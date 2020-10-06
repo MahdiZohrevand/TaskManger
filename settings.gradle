@@ -1,1 +1,3 @@
-include ':app'
+include ':persianCalendar'
+include ':infinite-recycler-view'
+include ':app', ':dayview'

@@ -9,22 +9,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import zohrevand.mahdi.customviewtest.model.CalendarTask
+import zohrevand.mahdi.customviewtest.model.Task
+import zohrevand.mahdi.taskmanager.NavigationCommand
 import zohrevand.mahdi.taskmanager.R
-import zohrevand.mahdi.taskmanager.business.Task
+import zohrevand.mahdi.taskmanager.dataAccess.TaskManagerDatabase
+import zohrevand.mahdi.taskmanager.utils.SingleLiveEvent
+import zohrevand.mahdi.taskmanager.view.newtask.NewTaskFragmentArgs
 
 import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
 
-/**
- * A fragment representing a list of Task.
- * Activities containing this fragment MUST implement the
- * [TaskListFragment.OnListFragmentInteractionListener] interface.
- */
+
 class TaskListFragment : Fragment() {
 
 
-    private var listener: OnListFragmentInteractionListener? = null
+    val db: TaskManagerDatabase by inject()
+
 
     private val listVewModel: TaskListVewModel by viewModel()
 
@@ -39,29 +44,26 @@ class TaskListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         val fab: FloatingActionButton = view.findViewById(R.id.fab)
-        val navController = findNavController()
 
-        //float action button navigate to new task
+
         fab.setOnClickListener {
-            navController.navigate(R.id.nav_new_task)
+            val action = TaskListFragmentDirections.actionNavTasksToNavNewTask(null)
+            findNavController().navigate(action)
         }
+
 
         // Set the adapter
         if (recyclerView != null) {
             with(recyclerView) {
-                layoutManager = LinearLayoutManager(context)
-                adapter = MyTaskRecyclerViewAdapter(DummyContent.ITEMS,
-                    object : OnListFragmentInteractionListener {
-                        override fun onListFragmentInteraction(item: Task) {
-                            val action = TaskListFragmentDirections.actionNavTasksToNavTimer()
-                            action.task = item
-                            navController.navigate(action)
-
-                        }
-
-                    })
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                adapter = TaskRecyclerViewAdapter(
+                    db.tasksDao,
+                    this@TaskListFragment::callBack
+                )
+                (layoutManager as LinearLayoutManager).scrollToPosition(Int.MAX_VALUE / 2)
+                PagerSnapHelper().attachToRecyclerView(this)
             }
         }
 
@@ -70,48 +72,10 @@ class TaskListFragment : Fragment() {
         return view
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            // throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
-    }
+    private fun callBack(item: CalendarTask) {
+        Timber.i("clicked item : ${item.getTitle()}")
+        val action = TaskListFragmentDirections.actionNavTasksToNavNewTask(item as Task)
+        findNavController().navigate(action)
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson
-     * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: Task)
-    }
-
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            TaskListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
     }
 }

@@ -19,5 +19,6 @@
 
 
     <string name="age_preference">TASK_MANAGER_USER_AGE_PREFERENCE</string>
+    <string name="start_bigger_than_finish">زمان انتخاب شده صحیح نمیباشد</string>
 
 </resources>

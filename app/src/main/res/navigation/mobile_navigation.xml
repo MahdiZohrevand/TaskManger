@@ -15,7 +15,12 @@
             android:id="@+id/nav_new_task"
             android:name="zohrevand.mahdi.taskmanager.view.newtask.NewTaskFragment"
             android:label="@string/menu_gallery"
-            tools:layout="@layout/fragment_new_task" />
+            tools:layout="@layout/fragment_new_task" >
+        <argument
+                android:name="task"
+                app:argType="zohrevand.mahdi.customviewtest.model.Task"
+                app:nullable="true" />
+    </fragment>
 
     <fragment
             android:id="@+id/nav_timer"
@@ -43,6 +48,9 @@
         <action
                 android:id="@+id/action_nav_tasks_to_nav_timer"
                 app:destination="@id/nav_timer" />
+        <action
+                android:id="@+id/action_nav_tasks_to_nav_new_task"
+                app:destination="@id/nav_new_task" />
     </fragment>
 
     <fragment

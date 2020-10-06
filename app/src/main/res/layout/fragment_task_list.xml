@@ -7,19 +7,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.MainActivity"
+        android:layoutDirection="rtl"
         tools:ignore="RtlHardcoded">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+            android:id="@+id/recycler_view"
             android:name="zohrevand.mahdi.taskmanager.view.TaskList.TaskFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
             tools:context=".view.taskList.TaskListFragment"
-            tools:listitem="@layout/row_task_item" />
+            tools:listitem="@layout/row_day_view" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
+            app:backgroundTint="@android:color/white"
+            android:alpha="0.85"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

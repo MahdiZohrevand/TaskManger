@@ -3,14 +3,14 @@ package zohrevand.mahdi.taskmanager.business
 import android.app.ActivityManager
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import zohrevand.mahdi.taskmanager.utils.PersianCalendar
+import zohrevand.mahdi.calendar.persian.PersianCalendar
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Parcelize
 class Task(
-    val title: String,
-    val description: String,
+    var title: String,
+    var description: String,
     //all date and time are in millisecond
     val taskId: Long = -1,
     var finishDate: Long = -1,
