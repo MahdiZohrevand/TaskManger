@@ -15,8 +15,12 @@ import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import zohrevand.mahdi.customviewtest.model.CalendarTask
+import zohrevand.mahdi.customviewtest.model.Task
+import zohrevand.mahdi.taskmanager.NavigationCommand
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.dataAccess.TaskManagerDatabase
+import zohrevand.mahdi.taskmanager.utils.SingleLiveEvent
+import zohrevand.mahdi.taskmanager.view.newtask.NewTaskFragmentArgs
 
 import zohrevand.mahdi.taskmanager.view.taskList.dummy.DummyContent
 
@@ -42,10 +46,11 @@ class TaskListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_task_list, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         val fab: FloatingActionButton = view.findViewById(R.id.fab)
-        val navController = findNavController()
+
 
         fab.setOnClickListener {
-            navController.navigate(R.id.nav_new_task)
+            val action = TaskListFragmentDirections.actionNavTasksToNavNewTask(null)
+            findNavController().navigate(action)
         }
 
 
@@ -69,7 +74,8 @@ class TaskListFragment : Fragment() {
 
     private fun callBack(item: CalendarTask) {
         Timber.i("clicked item : ${item.getTitle()}")
+        val action = TaskListFragmentDirections.actionNavTasksToNavNewTask(item as Task)
+        findNavController().navigate(action)
+
     }
-
-
 }
