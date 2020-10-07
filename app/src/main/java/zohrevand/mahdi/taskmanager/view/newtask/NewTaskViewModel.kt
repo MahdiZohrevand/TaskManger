@@ -154,4 +154,8 @@ class NewTaskViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
+
+    fun deleteTask() {
+        db.tasksDao.deleteById(task._id)
+    }
 }

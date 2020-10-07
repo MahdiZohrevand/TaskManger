@@ -58,6 +58,8 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    //airbnb style
+    implementation 'com.airbnb.android:paris:1.7.1'
 
     // App dependencies
     implementation "androidx.appcompat:appcompat:$appCompatVersion"

@@ -17,6 +17,9 @@ interface TasksDao {
     @Delete
     fun delete(taskModel: TaskModel)
 
+    @Query("DELETE FROM task_table WHERE TaskId = :id")
+    fun deleteById(id: Long)
+
     @Query("SELECT * from task_table WHERE taskId = :key")
     fun get(key: Long): TaskModel?
 
