@@ -98,13 +98,6 @@ class NewTaskViewModel(
 
     }
 
-    /*  private fun getEndMillisecond(): Long {
-          calendar.set(Calendar.HOUR_OF_DAY, endHourPosition)
-          calendar.set(Calendar.MINUTE, endMinutePosition)
-          //  Log.d("endHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
-          return calendar.timeInMillis
-
-      }*/
 
     private fun getFinishDate(): Date {
         calendar.set(Calendar.HOUR_OF_DAY, endHourPosition)
@@ -113,12 +106,6 @@ class NewTaskViewModel(
         return Date(calendar.timeInMillis)
     }
 
-    /* private fun getStartMillisecond(): Long {
-         calendar.set(Calendar.HOUR_OF_DAY, startHourPosition)
-         calendar.set(Calendar.MINUTE, startMinutePosition)
-         //  Log.d("startHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
-         return calendar.timeInMillis
-     }*/
 
     private fun getStartDate(): Date {
         calendar.set(Calendar.HOUR_OF_DAY, startHourPosition)
@@ -139,16 +126,6 @@ class NewTaskViewModel(
         endMinutePosition = task._endTimeMinute.toInt()
     }
 
-    /* suspend fun getAllTask() {
-         withContext(Dispatchers.IO) {
-             val tasksDao = db.tasksDao
-             tasksDao.getAllTask().observeForever {
-                 val x = it
-
-             }
-         }
-
-     }*/
 
     override fun onCleared() {
         super.onCleared()
