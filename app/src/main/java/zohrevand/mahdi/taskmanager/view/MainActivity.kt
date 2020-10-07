@@ -43,4 +43,6 @@ class MainActivity : AppCompatActivity() {
         toolbar.title = title
     }
 
+    public fun getToolbar(): Toolbar = toolbar
+
 }
