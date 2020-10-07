@@ -14,6 +14,7 @@ import zohrevand.mahdi.taskmanager.NavigationCommand
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.databinding.FragmentNewTaskBinding
 import zohrevand.mahdi.taskmanager.utils.setNumberAdapter
+import zohrevand.mahdi.taskmanager.view.MainActivity
 
 class NewTaskFragment : Fragment() {
 
@@ -32,6 +33,7 @@ class NewTaskFragment : Fragment() {
                 val task = NewTaskFragmentArgs.fromBundle(it).task
                 if (task != null) {
                     newTaskViewModel.setTask(task)
+                    (activity as MainActivity).setToolbarTitle("ویرایش تسک")
                 }
             }
         }

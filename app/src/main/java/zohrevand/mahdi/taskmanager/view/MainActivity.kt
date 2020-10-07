@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
         drawerLayout = findViewById(R.id.drawer_layout)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
 
@@ -35,6 +36,11 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return NavigationUI.navigateUp(navController, drawerLayout)
 
+    }
+
+
+    public fun setToolbarTitle(title: String) {
+        toolbar.title = title
     }
 
 }
