@@ -56,6 +56,9 @@ class NewTaskFragment : Fragment() {
         binding.startNewTaskSpinnerMinute.setNumberAdapter(0, 59, false)
         binding.endNewTaskSpinnerHour.setNumberAdapter(0, 23, false)
         binding.endNewTaskSpinnerMinute.setNumberAdapter(0, 59, false)
+        binding.dateDay.setNumberAdapter(1,30,false)
+        binding.dateMonth.setNumberAdapter(1,12,false)
+        binding.dateYear.setNumberAdapter(0,1500,false)
 
         return binding.root
 
