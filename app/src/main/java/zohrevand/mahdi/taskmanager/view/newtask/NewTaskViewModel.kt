@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
+import saman.zamani.persiandate.PersianDate
+import zohrevand.mahdi.calendar.persian.PersianCalendar
 import zohrevand.mahdi.customviewtest.model.Task
 import zohrevand.mahdi.taskmanager.NavigationCommand
 import zohrevand.mahdi.taskmanager.R
@@ -29,6 +31,9 @@ class NewTaskViewModel(
 
     //===================================time
     private val calendar = Calendar.getInstance()
+    private val pCalendar = PersianDate(calendar.time)
+
+
     var startHourPosition = calendar.get(Calendar.HOUR_OF_DAY)
     var startMinutePosition = calendar.get(Calendar.MINUTE)
 
@@ -36,6 +41,9 @@ class NewTaskViewModel(
     var endHourPosition = calendar.apply { add(Calendar.HOUR_OF_DAY, 1) }.get(Calendar.HOUR_OF_DAY)
     var endMinutePosition = startMinutePosition
 
+    var yearPosition = pCalendar.shYear
+    var monthPosition = pCalendar.shMonth -1
+    var dayPosition = pCalendar.shDay -1
 
     //coroutine and its job+scope
     private val viewModelJob = Job()
