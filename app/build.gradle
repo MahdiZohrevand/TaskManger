@@ -88,6 +88,9 @@ dependencies {
     //material card
     implementation 'com.android.support:design:28.0.0'
 
+    //Persian Calendar
+    implementation 'com.github.samanzamani.persiandate:PersianDate:0.8'
+
     kapt "androidx.room:room-compiler:$roomVersion"
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
