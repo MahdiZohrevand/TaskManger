@@ -20,7 +20,9 @@ public fun convertDbTaskListToDayViewTaskList(list: List<TaskModel>): MutableLis
                 calendar.apply { timeInMillis = it.finishDate!!.time }.get(Calendar.HOUR_OF_DAY)
                     .toFloat(),
                 calendar.get(Calendar.MINUTE).toFloat(),
-                Color.parseColor("#e44285F4")
+                Color.parseColor("#e44285F4"),
+                startDate = it.startDate,
+                endDate = it.finishDate
 
             )
         )

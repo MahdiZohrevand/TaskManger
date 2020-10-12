@@ -3,6 +3,7 @@ package zohrevand.mahdi.customviewtest.model
 import android.os.Parcelable
 import androidx.annotation.ColorInt
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 
 @Parcelize
@@ -16,7 +17,9 @@ class Task(
     val _endTimeHour: Float,
     val _endTimeMinute: Float,
     @ColorInt var _rectColor: Int? = null,
-    @ColorInt var _textColor: Int? = null
+    @ColorInt var _textColor: Int? = null,
+    var startDate: Date,
+    var endDate: Date?
 ) : CalendarTask, Parcelable {
 
 

@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import saman.zamani.persiandate.PersianDate
-import zohrevand.mahdi.calendar.persian.PersianCalendar
 import zohrevand.mahdi.customviewtest.model.Task
 import zohrevand.mahdi.taskmanager.NavigationCommand
 import zohrevand.mahdi.taskmanager.R
@@ -31,7 +30,7 @@ class NewTaskViewModel(
 
     //===================================time
     private val calendar = Calendar.getInstance()
-    private val pCalendar = PersianDate(calendar.time)
+    private var pCalendar = PersianDate(calendar.time)
 
 
     var startHourPosition = calendar.get(Calendar.HOUR_OF_DAY)
@@ -42,8 +41,8 @@ class NewTaskViewModel(
     var endMinutePosition = startMinutePosition
 
     var yearPosition = pCalendar.shYear
-    var monthPosition = pCalendar.shMonth -1
-    var dayPosition = pCalendar.shDay -1
+    var monthPosition = pCalendar.shMonth - 1
+    var dayPosition = pCalendar.shDay - 1
 
     //coroutine and its job+scope
     private val viewModelJob = Job()
@@ -108,24 +107,42 @@ class NewTaskViewModel(
 
 
     private fun getFinishDate(): Date {
-        calendar.set(Calendar.HOUR_OF_DAY, endHourPosition)
-        calendar.set(Calendar.MINUTE, endMinutePosition)
-        //  Log.d("endHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
-        return Date(calendar.timeInMillis)
+        pCalendar.shYear = yearPosition
+        pCalendar.shMonth = monthPosition + 1
+        pCalendar.shDay = dayPosition + 1
+        pCalendar.hour = endHourPosition
+        pCalendar.minute = endMinutePosition
+        return pCalendar.toDate()
+
+        /* calendar.set(Calendar.HOUR_OF_DAY, endHourPosition)
+         calendar.set(Calendar.MINUTE, endMinutePosition)
+         //  Log.d("endHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
+         return Date(calendar.timeInMillis)*/
     }
 
 
     private fun getStartDate(): Date {
-        calendar.set(Calendar.HOUR_OF_DAY, startHourPosition)
-        calendar.set(Calendar.MINUTE, startMinutePosition)
-        //  Log.d("startHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
-        return Date(calendar.timeInMillis)
+        pCalendar.shYear = yearPosition
+        pCalendar.shMonth = monthPosition + 1
+        pCalendar.shDay = dayPosition + 1
+        pCalendar.hour = startHourPosition
+        pCalendar.minute = startMinutePosition
+        return pCalendar.toDate()
+
+        /* calendar.set(Calendar.HOUR_OF_DAY, startHourPosition)
+         calendar.set(Calendar.MINUTE, startMinutePosition)
+         //  Log.d("startHourTime ", "${calendar.get(Calendar.HOUR_OF_DAY)} , ${calendar.get(Calendar.MINUTE)} , ${calendar.time.time}")
+         return Date(calendar.timeInMillis)*/
     }
 
 
     fun setTask(task: Task) {
         isEditMode = true
         this.task = task
+        pCalendar = PersianDate(task.startDate)
+        yearPosition = pCalendar.shYear
+        monthPosition = pCalendar.shMonth - 1
+        dayPosition = pCalendar.shDay - 1
         title.value = task._tittle
         description.value = task._description
         startHourPosition = task._startTimeHour.toInt()
