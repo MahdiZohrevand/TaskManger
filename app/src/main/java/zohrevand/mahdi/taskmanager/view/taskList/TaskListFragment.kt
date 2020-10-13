@@ -12,12 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+import saman.zamani.persiandate.PersianDate
 import timber.log.Timber
 import zohrevand.mahdi.customviewtest.model.CalendarTask
 import zohrevand.mahdi.customviewtest.model.Task
 import zohrevand.mahdi.taskmanager.R
 import zohrevand.mahdi.taskmanager.dataAccess.TaskManagerDatabase
+import zohrevand.mahdi.taskmanager.view.datepicker.DatePickerFragment
+import kotlin.math.abs
 
+private const val TodayPosition = Int.MAX_VALUE / 2
 
 class TaskListFragment : Fragment() {
 
@@ -55,7 +59,8 @@ class TaskListFragment : Fragment() {
             adapter = TaskRecyclerViewAdapter(
                 db.tasksDao,
                 this@TaskListFragment::onDayViewItemClickCallBack,
-                this@TaskListFragment::goToPositionCallBack
+                this@TaskListFragment::goToPositionCallBack,
+                this@TaskListFragment::onDateClickCallBack
             )
             (layoutManager as LinearLayoutManager).scrollToPosition(Int.MAX_VALUE / 2)
             PagerSnapHelper().attachToRecyclerView(this)
@@ -75,7 +80,29 @@ class TaskListFragment : Fragment() {
     }
 
     private fun goToPositionCallBack(position: Int) {
-        recyclerView.smoothScrollToPosition(Int.MAX_VALUE / 2)
+        val currentPosition =
+            (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+        val movement = abs(position - currentPosition)
+        if (movement < 21) {
+            recyclerView.smoothScrollToPosition(position)
+        } else {
+            recyclerView.scrollToPosition(position)
+        }
 
+    }
+
+    private fun onDateClickCallBack() {
+        val dialog = DatePickerFragment.newInstance()
+        dialog.callBack = {
+            val pCalendar = PersianDate(it).endOfDay()
+            val pCalendarNow = PersianDate().endOfDay()
+            if (pCalendarNow.compareTo(pCalendar) != 0) {
+                val movement = pCalendar.getDayUntilToday(pCalendarNow)
+                if (pCalendar.after(pCalendarNow)) goToPositionCallBack(((Int.MAX_VALUE / 2) + movement).toInt()) else goToPositionCallBack(
+                    ((Int.MAX_VALUE / 2) - movement).toInt()
+                )
+            }
+        }
+        dialog.show(fragmentManager!!, null)
     }
 }

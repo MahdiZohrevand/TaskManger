@@ -16,19 +16,20 @@ import zohrevand.mahdi.taskmanager.databinding.RowDayViewBinding
 
 
 
-const val TodayPosition = Int.MAX_VALUE / 2
+private const val TodayPosition = Int.MAX_VALUE / 2
 
 class TaskRecyclerViewAdapter(
     private val tasksDao: TasksDao,
     private val callBack: (item: CalendarTask) -> Unit,
-    private val goToPositionCallBack: ((position: Int) -> Unit)?
+    private val goToPositionCallBack: ((position: Int) -> Unit)?,
+    private val onDateClickCallBack: (() -> Unit)?
 ) : RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder>() {
 
     private val period = PeriodBetweenTwoTime()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent, callBack, goToPositionCallBack)
+        return ViewHolder.from(parent, callBack, goToPositionCallBack, onDateClickCallBack)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -69,7 +70,8 @@ class TaskRecyclerViewAdapter(
     class ViewHolder(
         val binding: RowDayViewBinding,
         callBack: (item: CalendarTask) -> Unit,
-        goToPositionCallBack: ((position: Int) -> Unit)?
+        goToPositionCallBack: ((position: Int) -> Unit)?,
+        onDateClickCallBack: (() -> Unit)?
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -80,6 +82,10 @@ class TaskRecyclerViewAdapter(
 
             binding.goToday.setOnClickListener {
                 goToPositionCallBack?.invoke(TodayPosition)
+            }
+
+            binding.dayViewDate.setOnClickListener {
+                onDateClickCallBack?.invoke()
             }
         }
 
@@ -101,11 +107,12 @@ class TaskRecyclerViewAdapter(
             fun from(
                 parent: ViewGroup,
                 callBack: (item: CalendarTask) -> Unit,
-                goToPositionCallBack: ((position: Int) -> Unit)?
+                goToPositionCallBack: ((position: Int) -> Unit)?,
+                onDateClickCallBack: (() -> Unit)?
             ): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = RowDayViewBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding, callBack, goToPositionCallBack)
+                return ViewHolder(binding, callBack, goToPositionCallBack, onDateClickCallBack)
             }
         }
     }

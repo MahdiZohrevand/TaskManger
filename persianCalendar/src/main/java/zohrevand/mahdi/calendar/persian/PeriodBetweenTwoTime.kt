@@ -8,7 +8,7 @@ import kotlin.math.abs
 class PeriodBetweenTwoTime {
 
     private var _lastDay = 0
-    private val nowPersian = PersianDate()
+    private var nowPersian = PersianDate()
     private val formatter = PersianDateFormat("y/m/d")
 
     //in the real word we must get it from storage
@@ -97,9 +97,10 @@ class PeriodBetweenTwoTime {
      * get Persian Date for given value
      */
     public fun getPersianDate(day: Int): PersianDate? {
-        val realDay = day - _lastDay
-        _lastDay = day
-        return nowPersian.addDay(realDay.toLong())
+        /* val realDay = day - _lastDay
+         _lastDay = day*/
+        nowPersian = PersianDate()
+        return nowPersian.addDay(day.toLong())
     }
 
     public fun getPersianDateSimpleFormat(day: Int): String {
