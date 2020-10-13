@@ -39,6 +39,13 @@ class DatePickerFragment : DialogFragment() {
             dismiss()
         }
 
+
+        viewModel.maxMonth = { max, dayPosition ->
+            binding.dateDay.setNumberAdapter(1, max, false)
+            binding.dateDay.setSelection(if (dayPosition >= max) max - 1 else dayPosition)
+        }
+
+
         binding.datePickerSubmit.setOnClickListener { _ ->
             viewModel.getDate()?.let { it ->
                 callBack?.invoke(
