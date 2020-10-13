@@ -56,9 +56,14 @@ class NewTaskFragment : Fragment() {
         binding.startNewTaskSpinnerMinute.setNumberAdapter(0, 59, false)
         binding.endNewTaskSpinnerHour.setNumberAdapter(0, 23, false)
         binding.endNewTaskSpinnerMinute.setNumberAdapter(0, 59, false)
-        binding.dateDay.setNumberAdapter(1,30,false)
-        binding.dateMonth.setNumberAdapter(1,12,false)
-        binding.dateYear.setNumberAdapter(0,1500,false)
+        binding.dateDay.setNumberAdapter(1, 30, false)
+        binding.dateMonth.setNumberAdapter(1, 12, false)
+        binding.dateYear.setNumberAdapter(0, 1500, false)
+
+        newTaskViewModel.maxMonth = { max, dayPosition ->
+            binding.dateDay.setNumberAdapter(1, max, false)
+            binding.dateDay.setSelection(if (dayPosition >= max) max - 1 else dayPosition)
+        }
 
         return binding.root
 

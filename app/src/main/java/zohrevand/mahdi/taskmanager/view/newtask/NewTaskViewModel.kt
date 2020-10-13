@@ -21,6 +21,10 @@ class NewTaskViewModel(
     val androidContext: Context
 ) : ViewModel() {
 
+    val monthLive = MutableLiveData<Int>()
+    val yearLive = MutableLiveData<Int>()
+    var maxMonth: ((max: Int, dayPosition: Int) -> Unit)? = null
+
     val navigation = SingleLiveEvent<NavigationCommand>()
 
     val title = MutableLiveData<String>()
@@ -47,6 +51,21 @@ class NewTaskViewModel(
     //coroutine and its job+scope
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+
+    init {
+        monthLive.observeForever {
+            val max = pCalendar.getMonthLength(yearPosition, it)
+            monthPosition = it - 1
+            maxMonth?.invoke(max, dayPosition)
+        }
+
+        yearLive.observeForever {
+            val max = pCalendar.getMonthLength(it, monthPosition + 1)
+            yearPosition = it
+            maxMonth?.invoke(max, dayPosition)
+        }
+    }
 
 
     fun onSubmitClick() {
